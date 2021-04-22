@@ -4,13 +4,15 @@
 #include <vector>
 #include <string>
 #include <iostream>
-typedef vector< vector<int> > Matriu;
-
+#include <map>
+typedef vector<string> fila;
+typedef vector<fila> matriu;
 class Nevera {
 
 private:
      
     Matriu Nevera;
+    map <string,int> registro_vacunas;
    
 public:
     
@@ -41,14 +43,22 @@ public:
     void canviar_nevera(int n, int x, int y);
     /* Pre: */
     /* Post: */
+    void afegir_unitats(int n, string id, int q);
+        //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas a introducir.
+        //POST: en caso de que exista la nevera, introducirá n vacunas de la id hasta rellenar todos los huecos disponibles
+
+    void treure_unitats(int n, string id, int q);
+        //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas que van a salir.
+        //POST: en caso de que exista la nevera, retirará n vacunas de la id correspondiente
 
     //Consultor
-    void consultar_pos(int n, int x, int y) /*const*/;
+    int consultar_cantidad(string id);
+    string consultar_pos(int x, int y) /*const*/;
     /* Pre: */
     /* Post: */
 
     //Lectura i escriptura
-    void escriure(int n) /*const*/;
+    void escriure() /*const*/;
     /* Pre: */
     /* Post: */
     /*
