@@ -16,13 +16,65 @@ void Control::fi(){
 void Control::afegir_vac(string id){
     //PRE: recibe la id de la vacuna
     //POST: añade al vector vacunas la nueva id en caso de que no exista previamente    
-
+    bool trobat = false;
+    int i = 0;
+    while(i<vacunas.size() and not trobat){
+        if(vacunas[i] == id) trobat = true;
+        i++;
+    }
+    if(trobat)  vacunas.push_back(id);
+    else        cout<<"error"<<endl;
 }
 void Control::treure_vac(string id){
     //PRE: recibe la id de la vacuna
     //POST: retira del vector vacunas la vacuna con la id correspondiente
+    bool trobat = false;    
+    int i = 0;
+    while(i<vacunas.size() and not trobat){
+        if(vacunas[i] == id) trobat = true;
+        i++;
+    }
+    vacunas.erase(vacunas.begin()+i);
 }
+void Control::afegir_unitats(string id, int q, Nevera &n){
+    //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas a introducir.
+    //POST: en caso de que exista la nevera, introducirá n vacunas de la id hasta rellenar todos los huecos disponibles
+    if(consultar_vac(id)){
+        unsigned int i = 0;
+        pair<int,int> size = n.consultar_dimensiones();
+        while(i<size.first and q!=0){
+            for(unsigned int j = 0;j<size.second;j++){
+                if(n.consultar_pos(i,j) == "NULL"){
+                    n.modificar_pos(i,j,id);
+                    q--;
+                }
+            } 
+            i++;
+        }
+        cout<<q<<endl;
 
+    }else   cout<<"error"<<endl;
+    
+}
+void Control::treure_unitats(string id, int q,Nevera &n){
+    //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas que van a salir.
+    //POST: en caso de que exista la nevera, retirará n vacunas de la id correspondiente
+    if(consultar_vac(id)){
+        unsigned int i = 0;
+        pair<int,int> size = n.consultar_dimensiones();
+        while(i<size.first and q!=0){
+            for(unsigned int j = 0;j<size.second;j++){
+                if(n.consultar_pos(i,j) == id){
+                    n.modificar_pos(i,j,"NULL");
+                    q--;
+                }
+            } 
+            i++;
+        }
+        cout<<q<<endl;
+
+    }else   cout<<"error"<<endl;    
+}
 //void update_inventario(string id, int n)
 
 //consultors
