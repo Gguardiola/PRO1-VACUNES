@@ -13,11 +13,14 @@ int main(){
         cin>>x>>y;
         almacen.push_back(Nevera(x,y));
     } 
+
     Control control;
 
     string line;
     string action;
     int nevera_num;    
+    string id;
+    int amount;
     while(getline(cin,line)){
         istringstream ss(line);
 
@@ -26,6 +29,28 @@ int main(){
             ss >> nevera_num;
             almacen[nevera_num-1].escriure();
         }
+        else if(action == "afegir_unitats"){
+            ss>>nevera_num;
+            ss>>id;
+            ss>>amount;
+            control.afegir_unitats(id,amount,almacen[nevera_num-1]);
+
+        }
+        else if(action == "treure_unitats"){
+            ss>>nevera_num;
+            ss>>id;
+            ss>>amount;
+            control.treure_unitats(id,amount,almacen[nevera_num-1]);
+
+        }        
+        else if(action == "afegir_vac"){
+            ss>>id;
+            control.afegir_vac(id);
+        }
+        else if(action == "treure_vac"){
+            ss>>id;
+            control.treure_vac(id);
+        }        
     }
 
 

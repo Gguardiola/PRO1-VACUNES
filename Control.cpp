@@ -22,7 +22,7 @@ void Control::afegir_vac(string id){
         if(vacunas[i] == id) trobat = true;
         i++;
     }
-    if(trobat)  vacunas.push_back(id);
+    if(!trobat)  vacunas.push_back(id);
     else        cout<<"error"<<endl;
 }
 void Control::treure_vac(string id){
@@ -34,7 +34,9 @@ void Control::treure_vac(string id){
         if(vacunas[i] == id) trobat = true;
         i++;
     }
-    vacunas.erase(vacunas.begin()+i);
+
+    if(trobat) vacunas.erase(vacunas.begin()+i);
+    else cout<<"error"<<endl;
 }
 void Control::afegir_unitats(string id, int q, Nevera &n){
     //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas a introducir.
@@ -44,9 +46,11 @@ void Control::afegir_unitats(string id, int q, Nevera &n){
         pair<int,int> size = n.consultar_dimensiones();
         while(i<size.first and q!=0){
             for(unsigned int j = 0;j<size.second;j++){
-                if(n.consultar_pos(i,j) == "NULL"){
-                    n.modificar_pos(i,j,id);
-                    q--;
+                if(q!=0){
+                    if(n.consultar_pos(i,j) == "NULL"){
+                        n.modificar_pos(i,j,id);
+                        q--;
+                    }
                 }
             } 
             i++;
@@ -64,9 +68,11 @@ void Control::treure_unitats(string id, int q,Nevera &n){
         pair<int,int> size = n.consultar_dimensiones();
         while(i<size.first and q!=0){
             for(unsigned int j = 0;j<size.second;j++){
-                if(n.consultar_pos(i,j) == id){
-                    n.modificar_pos(i,j,"NULL");
-                    q--;
+                if(q!=0){
+                    if(n.consultar_pos(i,j) == id){
+                        n.modificar_pos(i,j,"NULL");
+                        q--;
+                    }
                 }
             } 
             i++;

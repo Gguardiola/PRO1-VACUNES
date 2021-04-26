@@ -16,7 +16,13 @@ Nevera::Nevera(int x, int y)
 /* Pre: cert */
 /* Post: Crea una nevera de x·y*/
 {
-    matriu nevera(x,fila(y,"NULL"));
+    vector<string> aux;
+    for(int j = 0; j<y;j++){
+        aux.push_back("NULL");
+    }    
+    for(int i = 0; i<x;i++){            
+        nevera.push_back(aux);
+    }
     dimensiones.first = x;dimensiones.second = y;
 }
 
@@ -82,9 +88,9 @@ void Nevera::escriure() /*const*/
 /* Post: */
 {
     int num_vacunas = 0;
-    cout<<"size "<<nevera.size()<<endl;
     for(unsigned int i = 0;i<nevera.size();i++){
         for(unsigned int j = 0;j<nevera[i].size();j++){
+            if(j != 0) cout<<" ";
             cout<<nevera[i][j];
             if(nevera[i][j] != "NULL") num_vacunas++;
         }    
