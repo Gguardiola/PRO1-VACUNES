@@ -33,14 +33,14 @@ int main(){
             ss>>nevera_num;
             ss>>id;
             ss>>amount;
-            control.afegir_unitats(id,amount,almacen[nevera_num-1]);
+            almacen[nevera_num-1].afegir_unitats(id,amount,control.get_vacunas());
 
         }
         else if(action == "treure_unitats"){
             ss>>nevera_num;
             ss>>id;
             ss>>amount;
-            control.treure_unitats(id,amount,almacen[nevera_num-1]);
+            almacen[nevera_num-1].treure_unitats(id,amount,control.get_vacunas());
 
         }        
         else if(action == "afegir_vac"){

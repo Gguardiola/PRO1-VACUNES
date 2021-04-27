@@ -46,11 +46,11 @@ public:
    // void canviar_nevera(int n, int x, int y);
     /* Pre: */
     /* Post: */
-    void modificar_pos(int x, int y, string id);
+    void afegir_unitats(string id, int q, const vector<string> &vacunas);    
+    void treure_unitats(string id, int q, const vector<string> &vacunas);
 
     //Consultor
     int consultar_cantidad(string id);
-    pair<int,int> consultar_dimensiones();
     string consultar_pos(int x, int y) /*const*/;
     /* Pre: */
     /* Post: */

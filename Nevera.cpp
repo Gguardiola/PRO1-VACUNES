@@ -57,11 +57,57 @@ de visibilitat */
     {
 }
 */
+void Nevera::afegir_unitats(string id, int q, const vector<string> &vacunas){
+    //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas a introducir.
+    //POST: en caso de que exista la nevera, introducirá n vacunas de la id hasta rellenar todos los huecos disponibles
+    bool exists = false;
+    for (string i: vacunas){
+        if(i == id) exists = true;
+    }    
+    if(exists){
+        unsigned int i = 0,j = 0;
+        pair<int,int> size = consultar_dimensiones();
+        while(i<nevera.size() and q!=0){
+            j = 0;
+            while(j<nevera[i].size() and q!=0){
+                if(nevera[x][y] == "NULL"){
+                    nevera[x][y] = id;
+                    q--;
+                }
+                j++;
+            } 
+            i++;
+        }
+        cout<<q<<endl;
 
-void Nevera::modificar_pos(int x, int y, string id){
-
-    nevera[x][y] = id;
+    }else   cout<<"error"<<endl;
+    
 }
+void Nevera::treure_unitats(string id, int q,const vector<string> &vacunas){
+    //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas que van a salir.
+    //POST: en caso de que exista la nevera, retirará n vacunas de la id correspondiente
+    bool exists = false;
+    for (string i: vacunas){
+        if(i == id) exists = true;
+    }    
+    if(exists){
+        unsigned int i = 0,j = 0;
+
+        while(i<nevera.size() and q!=0){
+            while(j<nevera[i].size() and q!=0){
+                if(nevera[x][y] == id){
+                    nevera[x][y] = "NULL";
+                    q--;
+                }
+                j++;
+            } 
+            i++;
+        }
+        cout<<q<<endl;
+
+    }else   cout<<"error"<<endl;    
+}
+
 int Nevera::consultar_cantidad(string id){
     int cant = 0;
     map<string,int>::const_iterator it = registro_vacunas.find(id);
@@ -72,10 +118,7 @@ int Nevera::consultar_cantidad(string id){
     return cant;
 
 }
-pair<int,int> Nevera::consultar_dimensiones(){
 
-    return dimensiones;
-}
 string Nevera::consultar_pos(int x, int y) /*const*/
 /* Pre: */
 /* Post: */
