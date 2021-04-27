@@ -34,7 +34,6 @@ public:
     de visibilitat */
 
     //Modificadors
- //   void distribuir(string s, int n);
     /* Pre: cert */
     /* Post: */
   //  void comprimir(int n);

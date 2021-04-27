@@ -32,11 +32,7 @@ de visibilitat */
 {
 }
 /*
-    void Nevera::distribuir(string s, int n)
-
-    {
-
-    }    
+ 
 */
 /*    
     void Nevera::comprimir(int n)
@@ -60,51 +56,64 @@ de visibilitat */
 void Nevera::afegir_unitats(string id, int q, const vector<string> &vacunas){
     //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas a introducir.
     //POST: en caso de que exista la nevera, introducirá n vacunas de la id hasta rellenar todos los huecos disponibles
+    int auxq = q;
     bool exists = false;
     for (string i: vacunas){
         if(i == id) exists = true;
     }    
     if(exists){
-        unsigned int i = 0,j = 0;
-        pair<int,int> size = consultar_dimensiones();
-        while(i<nevera.size() and q!=0){
+        int i = nevera.size()-1,j = 0;
+        while(i>=0 and q!=0){
             j = 0;
             while(j<nevera[i].size() and q!=0){
-                if(nevera[x][y] == "NULL"){
-                    nevera[x][y] = id;
+                if(nevera[i][j] == "NULL"){
+                    nevera[i][j] = id;
                     q--;
                 }
                 j++;
             } 
-            i++;
+            i--;
         }
         cout<<q<<endl;
 
+        auxq-= q;
+        map<string,int>::iterator it = registro_vacunas.find(id);
+        if(it == registro_vacunas.end()){
+            registro_vacunas.insert(make_pair(id,auxq));
+        }else{
+            it->second += auxq;
+        }
     }else   cout<<"error"<<endl;
     
 }
 void Nevera::treure_unitats(string id, int q,const vector<string> &vacunas){
     //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas que van a salir.
     //POST: en caso de que exista la nevera, retirará n vacunas de la id correspondiente
+    int auxq = q;
     bool exists = false;
     for (string i: vacunas){
         if(i == id) exists = true;
     }    
     if(exists){
-        unsigned int i = 0,j = 0;
+        int i = nevera.size()-1,j = 0;
 
-        while(i<nevera.size() and q!=0){
+        while(i>=0 and q!=0){
+            j = 0;
             while(j<nevera[i].size() and q!=0){
-                if(nevera[x][y] == id){
-                    nevera[x][y] = "NULL";
+                if(nevera[i][j] == id){
+                    nevera[i][j] = "NULL";
                     q--;
                 }
                 j++;
             } 
-            i++;
+            i--;
         }
         cout<<q<<endl;
-
+        auxq-= q;
+        map<string,int>::iterator it = registro_vacunas.find(id);
+        if(it != registro_vacunas.end()){
+            it->second -= auxq;
+        }
     }else   cout<<"error"<<endl;    
 }
 

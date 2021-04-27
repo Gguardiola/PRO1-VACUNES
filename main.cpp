@@ -50,7 +50,15 @@ int main(){
         else if(action == "treure_vac"){
             ss>>id;
             control.treure_vac(id);
-        }        
+        }      
+        else if(action == "consultar_vac"){
+            ss>>id;
+            control.consultar_vac(id,almacen);
+        }  
+        else if(action == "inventari"){
+            ss>>id;
+            control.inventari(almacen);
+        }          
     }
 
 

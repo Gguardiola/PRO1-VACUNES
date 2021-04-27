@@ -22,8 +22,12 @@ void Control::afegir_vac(string id){
         if(vacunas[i] == id) trobat = true;
         i++;
     }
-    if(!trobat)  vacunas.push_back(id);
+    if(!trobat){
+        vacunas.push_back(id);
+        sort(vacunas.begin(),vacunas.end());
+    }
     else        cout<<"error"<<endl;
+    
 }
 void Control::treure_vac(string id){
     //PRE: recibe la id de la vacuna
@@ -42,10 +46,13 @@ void Control::treure_vac(string id){
 //void update_inventario(string id, int n)
 
 //consultors
+vector<string> Control::get_vacunas() const{
+    return vacunas;
+}
 void Control::consultar_vac(string id, vector<Nevera> &almacen) const{
     //PRE: string de la id de la vacuna
     //POST: comprueba si la vacuna esta definida o no.
-    //Si existe, devuelve la cantidad total de vacunas con esa id que existe en todas las neveras. En caso de no existir devuelve 0.
+    //Si existe, devuelve la cantidad total de vacunas con esa id que existe en todas las neveras. En caso de no existir devuelve error.
     bool exists = false;
     int cantidad = 0;
     for (string i: vacunas){
@@ -57,11 +64,15 @@ void Control::consultar_vac(string id, vector<Nevera> &almacen) const{
             cantidad+= almacen[i].consultar_cantidad(id);
         }
 
+        cout<<cantidad<<endl;
     }   
-
 }
 
-void Control::inventari() const{
+void Control::inventari(vector<Nevera> &almacen) const{
     //PRE: cert
     //POST: imprime la id de las vacunas y su cantidad en todas las neveras
+    for(int i=0; i < vacunas.size(); ++i){
+            cout<<vacunas[i]<<" ";
+            consultar_vac(vacunas[i],almacen);
+    }
 }
