@@ -42,7 +42,7 @@ public:
   //  void ordenar(int n);
     /* Pre: */
     /* Post: */
-   // void canviar_nevera(int n, int x, int y);
+    void canviar_nevera(int x, int y);
     /* Pre: */
     /* Post: */
     void afegir_unitats(string id, int q, const vector<string> &vacunas);    

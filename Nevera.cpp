@@ -47,12 +47,40 @@ de visibilitat */
 
     }
 */    
-/*
-    void Nevera::canviar_nevera(int n, int x, int y)
 
-    {
+void Nevera::canviar_nevera(int x, int y){
+    if((x*y) >= (nevera.size()*nevera[0].size())){
+        matriu aux(x,fila(y,"NULL"));
+        int FIL = nevera.size()-1, i = aux.size()-1;
+        int COL = 0, j = 0;
+        while(FIL>=0 and i>=0){
+
+            while(j<aux[i].size() and COL<nevera[FIL].size()){
+                
+                aux[i][j] = nevera[FIL][COL];
+                j++;
+                ++COL;
+
+            }
+            if(j== aux[i].size()){
+            i--;
+            j=0;
+            }
+            if(COL== nevera[FIL].size()){
+            --FIL;
+            COL=0;
+            }
+        }
+        nevera=aux;
+
+    }else{
+        cout<<"error"<<endl;
+
+    }
+
+
 }
-*/
+
 void Nevera::afegir_unitats(string id, int q, const vector<string> &vacunas){
     //PRE: recibe el numero de la nevera, id de la vacuna y la cantidad de vacunas a introducir.
     //POST: en caso de que exista la nevera, introducirá n vacunas de la id hasta rellenar todos los huecos disponibles

@@ -58,7 +58,13 @@ int main(){
         else if(action == "inventari"){
             ss>>id;
             control.inventari(almacen);
-        }          
+        }
+        else if(action == "canviar_nevera"){
+            ss>>nevera_num;
+            ss>>x;
+            ss>>y;
+            almacen[nevera_num-1].canviar_nevera(x,y);
+        }
     }
 
 
