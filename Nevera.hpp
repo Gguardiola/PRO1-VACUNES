@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <algorithm>
 using namespace std;
 typedef vector<string> fila;
 typedef vector<fila> matriu;
@@ -36,10 +37,10 @@ public:
     //Modificadors
     /* Pre: cert */
     /* Post: */
-  //  void comprimir(int n);
+    void comprimir();
     /* Pre: */
     /* Post: */
-  //  void ordenar(int n);
+    void ordenar();
     /* Pre: */
     /* Post: */
     void canviar_nevera(int x, int y);
@@ -50,7 +51,7 @@ public:
 
     //Consultor
     int consultar_cantidad(string id);
-    string consultar_pos(int x, int y) /*const*/;
+    void consultar_pos(int x, int y) /*const*/;
     /* Pre: */
     /* Post: */
 

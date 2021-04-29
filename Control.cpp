@@ -26,7 +26,7 @@ void Control::afegir_vac(string id){
         vacunas.push_back(id);
         sort(vacunas.begin(),vacunas.end());
     }
-    else        cout<<"error"<<endl;
+    else        cout<<"  "<<"error"<<endl;
     
 }
 void Control::treure_vac(string id){
@@ -34,13 +34,19 @@ void Control::treure_vac(string id){
     //POST: retira del vector vacunas la vacuna con la id correspondiente
     bool trobat = false;    
     int i = 0;
+    vector<string>::iterator it = vacunas.begin();
     while(i<vacunas.size() and not trobat){
         if(vacunas[i] == id) trobat = true;
-        i++;
+        else {
+            i++;
+            it++;
+        }
     }
 
-    if(trobat) vacunas.erase(vacunas.begin()+i);
-    else cout<<"error"<<endl;
+    if(trobat) {
+        vacunas.erase(it);
+    }
+    else cout<<"  "<<"error"<<endl;
 }
 
 //void update_inventario(string id, int n)
@@ -72,6 +78,7 @@ void Control::inventari(vector<Nevera> &almacen) const{
     //PRE: cert
     //POST: imprime la id de las vacunas y su cantidad en todas las neveras
     for(int i=0; i < vacunas.size(); ++i){
+            cout<<"  ";
             cout<<vacunas[i]<<" ";
             consultar_vac(vacunas[i],almacen);
     }

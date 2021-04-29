@@ -8,7 +8,6 @@ Nevera::Nevera()
 /* Pre: cert */
 /* Post: Crea una nevera de 0x0*/
 {
-    cout<<"ERROR"<<endl;
 
 }
 
@@ -31,22 +30,68 @@ Nevera:: ~Nevera()
 de visibilitat */
 {
 }
-/*
- 
-*/
-/*    
-    void Nevera::comprimir(int n)
+//VERGUENZA MURO
 
-    {
 
+
+
+   
+void Nevera::comprimir(){
+    
+    int FIL = nevera.size()-1, i = nevera.size()-1;
+    int COL = 0, j = 0;
+    while(i>=0 and FIL>=0){
+
+        while(j<nevera[i].size() and COL<nevera[FIL].size()){
+            if(nevera[i][j]=="NULL" and nevera[FIL][COL]!="NULL"){
+                nevera[i][j]=nevera[FIL][COL];
+                nevera[FIL][COL]="NULL";
+                j++; 
+                COL++;
+            }
+            else if(nevera[i][j]=="NULL" and nevera[FIL][COL]=="NULL") COL++;
+            else if(nevera[i][j]!="NULL" and nevera[FIL][COL]=="NULL") j++;
+            
+            else{
+                j++;
+                COL++;
+            }
+        }
+        if(j== nevera[i].size()){
+            i--;
+            j=0;
+        }
+        if(COL== nevera[FIL].size()){
+            FIL--;
+            COL=0;
+        }
+    } 
+
+
+
+
+}
+
+
+void Nevera::ordenar(){
+    
+    vector<string> neveraAux(nevera.size()*nevera[0].size());
+    int s=0;
+    for(int i = nevera.size()-1; i >=0; i--){
+        for(int j = nevera[i].size()-1; j >=0; j--, s++){
+            neveraAux[s]= nevera[i][j];
+        }
     }
-*/
-/*
-    void Nevera::ordenar(int n)
-    {
-
+    sort(neveraAux.begin(), neveraAux.end());
+    s=0;
+    for(int i = nevera.size()-1; i >=0; i--){
+        for(int j = 0; j < nevera[i].size(); j++, s++){
+            nevera[i][j] = neveraAux[s];
+        }
     }
-*/    
+
+}
+    
 
 void Nevera::canviar_nevera(int x, int y){
     if((x*y) >= (nevera.size()*nevera[0].size())){
@@ -60,21 +105,22 @@ void Nevera::canviar_nevera(int x, int y){
                 aux[i][j] = nevera[FIL][COL];
                 j++;
                 ++COL;
-
             }
             if(j== aux[i].size()){
-            i--;
-            j=0;
+                i--;
+                j=0;
             }
             if(COL== nevera[FIL].size()){
-            --FIL;
-            COL=0;
+                --FIL;
+                COL=0;
             }
         }
         nevera=aux;
+        comprimir();
+
 
     }else{
-        cout<<"error"<<endl;
+        cout<<"  "<<"error"<<endl;
 
     }
 
@@ -102,7 +148,7 @@ void Nevera::afegir_unitats(string id, int q, const vector<string> &vacunas){
             } 
             i--;
         }
-        cout<<q<<endl;
+        cout<<"  "<<q<<endl;
 
         auxq-= q;
         map<string,int>::iterator it = registro_vacunas.find(id);
@@ -111,7 +157,7 @@ void Nevera::afegir_unitats(string id, int q, const vector<string> &vacunas){
         }else{
             it->second += auxq;
         }
-    }else   cout<<"error"<<endl;
+    }else   cout<<"  "<<"error"<<endl;
     
 }
 void Nevera::treure_unitats(string id, int q,const vector<string> &vacunas){
@@ -136,13 +182,13 @@ void Nevera::treure_unitats(string id, int q,const vector<string> &vacunas){
             } 
             i--;
         }
-        cout<<q<<endl;
+        cout<<"  "<<q<<endl;
         auxq-= q;
         map<string,int>::iterator it = registro_vacunas.find(id);
         if(it != registro_vacunas.end()){
             it->second -= auxq;
         }
-    }else   cout<<"error"<<endl;    
+    }else   cout<<"  "<<"error"<<endl;    
 }
 
 int Nevera::consultar_cantidad(string id){
@@ -156,11 +202,11 @@ int Nevera::consultar_cantidad(string id){
 
 }
 
-string Nevera::consultar_pos(int x, int y) /*const*/
+void Nevera::consultar_pos(int x, int y) /*const*/
 /* Pre: */
 /* Post: */
 {
-    return nevera[x][y];
+    cout<<"  "<<nevera[x][y]<<endl;
 }
 
 void Nevera::escriure() /*const*/
@@ -169,6 +215,7 @@ void Nevera::escriure() /*const*/
 {
     int num_vacunas = 0;
     for(unsigned int i = 0;i<nevera.size();i++){
+        cout<<"  ";
         for(unsigned int j = 0;j<nevera[i].size();j++){
             if(j != 0) cout<<" ";
             cout<<nevera[i][j];
@@ -177,9 +224,10 @@ void Nevera::escriure() /*const*/
         cout<<endl;
     }
 
-    cout<<num_vacunas<<endl;
+    cout<<"  "<<num_vacunas<<endl;
 
     for(map<string, int>::const_iterator it=registro_vacunas.begin();it!=registro_vacunas.end();it++){
+        cout<<"  ";
         cout<<it->first<<" "<<it->second<<endl;
 
     }
