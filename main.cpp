@@ -1,30 +1,25 @@
 #include <iostream>
 #include <sstream>
-#include <chrono>
-#include "Nevera.hpp"
+#include "Cambra.hpp"
 #include "Control.hpp"
 using namespace std;
 
 int main(){
 
-    vector<Nevera> almacen;
+    vector <Cambra> almacen;
     int n,x,y;
     cin>>n;
-    for(int i = 0;i<n;i++){
+    for(int i = 0; i < n; i++){
         cin>>x>>y;
-        almacen.push_back(Nevera(x,y));
+        almacen.push_back(Cambra(x,y));
     } 
 
     Control control;
+    string line, action, id;
+    int nevera_num, amount;
 
-    string line;
-    string action;
-    int nevera_num;    
-    string id;
-    int amount;
     while(getline(cin,line) and action != "fi"){
         istringstream ss(line);
-
         ss >> action;
         if(action == "escriure"){
             ss >> nevera_num;
@@ -95,6 +90,6 @@ int main(){
         } 
               
     }
-    cout<<line<<endl;
+    cout<<"fi"<<endl; //había un <<line y no salía el fi
 
 }

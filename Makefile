@@ -2,16 +2,16 @@ OPCIONS = -D_JUDGE_ -D_GLIBCXX_DEBUG -Wall -Wextra -Werror -Wno-sign-compare -st
 
 all: main.exe
 
-main.exe: main.o Nevera.o Control.o 
-	g++ -o main.exe main.o Nevera.o Control.o
+main.exe: main.o Cambra.o Control.o 
+	g++ -o main.exe main.o Cambra.o Control.o
 		
-main.o: main.cpp Nevera.hpp Control.hpp
+main.o: main.cpp Cambra.hpp Control.hpp
 	g++ -c main.cpp $(OPCIONS)
 	
-Nevera.o: Nevera.cpp Nevera.hpp
-	g++ -c Nevera.cpp $(OPCIONS)
+Cambra.o: Cambra.cpp Cambra.hpp
+	g++ -c Cambra.cpp $(OPCIONS)
 
-Control.o: Control.cpp Control.hpp Nevera.hpp
+Control.o: Control.cpp Control.hpp Cambra.hpp
 	g++ -c Control.cpp $(OPCIONS)
 
 clean:

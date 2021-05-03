@@ -1,10 +1,6 @@
 #ifndef CONTROL_HPP
 #define CONTROL_HPP
-#include <string>
-#include <vector>
-#include <map>
-#include <algorithm>
-#include "Nevera.hpp"
+#include "Cambra.hpp"
 
 class Control {
 
@@ -15,8 +11,6 @@ public:
     Control();
     //default destructor
     ~Control();
-    //finalizar programa
-    void fi();
     //modificadors
     void afegir_vac(string id);
     //PRE: recibe la id de la vacuna
@@ -31,12 +25,12 @@ public:
     vector<string> get_vacunas() const;
     //PRE:cert
     //POST: devuelve vector de strings con las ID de las vacunas
-    void consultar_vac(string id, vector<Nevera> &almacen) const;
+    void consultar_vac(string id, vector<Cambra> &almacen) const;
 
     //PRE: string de la id de la vacuna
     //POST: comprueba si la vacuna esta definida o no.
     //Si existe, devuelve la cantidad total de vacunas con esa id que existe en todas las neveras. En caso de no existir devuelve  "error".
-    void inventari(vector<Nevera> &almacen) const;
+    void inventari(vector<Cambra> &almacen) const;
     //PRE: cert
     //POST: imprime la id de las vacunas y su cantidad en todas las neveras
 
