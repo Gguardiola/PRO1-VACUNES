@@ -4,8 +4,8 @@ Cambra::Cambra()
 /* Pre: cert */
 /* Post: crida al destructor de la clase. No es pot crear una nevera sense dimensions */
 {
-cout<<"error mida de la cambra buida"<<endl;
-this -> ~Cambra();
+    cout<<"error mida de la cambra buida"<<endl;
+    this -> ~Cambra();
 }
 
 Cambra::Cambra(int x, int y)
@@ -30,7 +30,8 @@ de visibilitat */
 
 void Cambra::comprimir()
 /* Pre: cert */
-/* Post: es desplacen les vacunes cap a l’esquerra i cap avall sense restar cap forat entre dues vacunes ni abans de cap vacuna, tot mantenint l’ordre relatiu de les vacunes */
+/* Post: es desplacen les vacunes cap a l’esquerra i cap avall sense restar cap forat 
+entre dues vacunes ni abans de cap vacuna, tot mantenint l’ordre relatiu de les vacunes */
 {
     int FIL = nevera.size()-1, i = nevera.size()-1;
     int COL = 0, j = 0;
@@ -63,10 +64,10 @@ void Cambra::comprimir()
 
 }
 
-
 void Cambra::ordenar()
 /* Pre: cert */
-/* Post: s’ordenen alfabèticament les vacunes de la nevera que conté sense deixar forats entre elles ni abans de cap vacuna */
+/* Post: s’ordenen alfabèticament les vacunes de la nevera que conté sense deixar forats 
+entre elles ni abans de cap vacuna */
 {
     
     vector<string> neveraAux(nevera.size()*nevera[0].size());
@@ -87,10 +88,11 @@ void Cambra::ordenar()
 }
 
 void Cambra::canviar_nevera(int x, int y)
-/* Pre: cert */
+/* Pre: La nova dimensió de la nevera ha de ser més gran o igual a l'anterior,
+o sigui, (x*y) >= (nevera.size()*nevera[0].size()), en cas contrari no fa res */
 /* Post: es redimensiona la nevera. Si les vacunes que hi ha a la nevera inicial de
-        la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
-        contrari, es fa el canvi de mides de la nevera */
+la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
+contrari, es fa el canvi de mides de la nevera */
 {
     if((x*y) >= (nevera.size()*nevera[0].size())){
         matriu aux(x,fila(y,"NULL"));
@@ -126,8 +128,9 @@ void Cambra::canviar_nevera(int x, int y)
 
 void Cambra::afegir_unitats(string id, int q, const vector<string> &vacunas)
 /* Pre: rep l'id de la vacuna, la quantitat de vacunes a introduir i un vector amb el total de vacunes declarades */
-/* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats com càpiguen 
-        en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
+//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+/* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats
+com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
 {
     int auxq = q;
     bool exists = false;
@@ -162,9 +165,10 @@ void Cambra::afegir_unitats(string id, int q, const vector<string> &vacunas)
 
 void Cambra::treure_unitats(string id, int q,const vector<string> &vacunas)
 /* Pre: rep l'id de la vacuna, la quantitat de vacunes a treure i un vector amb el total de vacunes declarades */
-/* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es
-        treuen tantes unitats com es pugui i es torna un enter que indiqui quantes
-        unitats no s'han pogut treure perquè no hi havia prou unitats a la cambra */ 
+//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+/* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es treuen 
+tantes unitats com es pugui i es torna un enter que indiqui quantes unitats 
+no s'han pogut treure perquè no hi havia prou unitats a la cambra */ 
 {
     int auxq = q;
     bool exists = false;
@@ -210,7 +214,7 @@ int Cambra::consultar_cantidad(string id) const
 void Cambra::consultar_pos(int x, int y) const
 /* Pre: cert */
 /* Post: s’indica quina vacuna hi ha en la posició corresponent de la nevera de la cambra. 
-        Si no hi ha cap vacuna, s’escriu NULL */
+Si no hi ha cap vacuna, s’escriu NULL */
 {
     cout<<"  "<<nevera[x][y]<<endl;
 }
@@ -218,8 +222,8 @@ void Cambra::consultar_pos(int x, int y) const
 void Cambra::escriure() const
 /* Pre: cert */
 /* Post: S’escriu el contingut de la nevera de la cambra de dalt a baix i d’esquerra a dreta.
-        També s’escriu quantes unitats hi ha en total i, per ordre d’identificador de vacuna
-        existent en la nevera, s’escriuen l’identificador de vacuna i la seva quantitat */
+També s’escriu quantes unitats hi ha en total i, per ordre d’identificador de vacuna
+existent en la nevera, s’escriuen l’identificador de vacuna i la seva quantitat */
 {
     int num_vacunas = 0;
     for(unsigned int i = 0;i<nevera.size();i++){

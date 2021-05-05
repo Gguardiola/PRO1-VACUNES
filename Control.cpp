@@ -1,21 +1,25 @@
 #include "Control.hpp"
 
-//constructors
 Control::Control()
-
-
+/* Pre: */
+/* Post: */
 {
 
 }
 
-//default destructor
-Control::~Control(){  
+Control::~Control()
+/* Post: esborra automaticament els objectes locals en sortir d'un ambit
+de visibilitat */
+{  
+
 }
 
-//modificadors
-void Control::afegir_vac(string id){
-    //PRE: recibe la id de la vacuna
-    //POST: añade al vector vacunas la nueva id en caso de que no exista previamente    
+void Control::afegir_vac(string id)
+/* Pre: cert */
+//la id de la vacuna NO ha d'existir en el vector on estan totes les vacunes declarades
+/* Post: si la vacuna ja existia, es produeix un error; sinó, la vacuna es dona d'alta
+en el sistema amb 0 unitats */
+{
     bool trobat = false;
     int i = 0;
     while(i<vacunas.size() and not trobat){
@@ -29,9 +33,13 @@ void Control::afegir_vac(string id){
     else        cout<<"  "<<"error"<<endl;
     
 }
-void Control::treure_vac(string id){
-    //PRE: recibe la id de la vacuna
-    //POST: retira del vector vacunas la vacuna con la id correspondiente
+
+void Control::treure_vac(string id)
+/* Pre: cert */
+//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+/* Post: si la vacuna no existeix, o existeix i en queden unitats, es produeix un error.
+En cas contrari, la vacuna es dona de baixa del sistema */
+{
     bool trobat = false;    
     int i = 0;
     vector<string>::iterator it = vacunas.begin();
@@ -49,16 +57,19 @@ void Control::treure_vac(string id){
     else cout<<"  "<<"error"<<endl;
 }
 
-//void update_inventario(string id, int n)
-
-//consultors
-vector<string> Control::get_vacunas() const{
+vector<string> Control::get_vacunas() const
+/* Pre: cert */
+/* Post: retorna el vector de strings amb les IDs de les vacunes */
+{
     return vacunas;
 }
-void Control::consultar_vac(string id, vector<Cambra> &almacen) const{
-    //PRE: string de la id de la vacuna
-    //POST: comprueba si la vacuna esta definida o no.
-    //Si existe, devuelve la cantidad total de vacunas con esa id que existe en todas las neveras. En caso de no existir devuelve error.
+
+void Control::consultar_vac(string id, vector<Cambra> &almacen) const
+/* Pre: cert */
+//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+/* Post: Si la vacuna no existeix, es produeix un error. En cas contrari, escriu
+quantes unitats hi ha en total al magatzem */
+{
     bool exists = false;
     int cantidad = 0;
     for (string i: vacunas){
@@ -74,9 +85,11 @@ void Control::consultar_vac(string id, vector<Cambra> &almacen) const{
     }   
 }
 
-void Control::inventari(vector<Cambra> &almacen) const{
-    //PRE: cert
-    //POST: imprime la id de las vacunas y su cantidad en todas las neveras
+void Control::inventari(vector<Cambra> &almacen) const
+/* Pre: cert */
+/* Post: Per cada tipus de vacuna que hi hagi en el sistema s'escriu el seu id
+i la quantitat total en el magatzem, ordenat per identificador de vacuna */
+{
     for(int i=0; i < vacunas.size(); ++i){
             cout<<"  ";
             cout<<vacunas[i]<<" ";

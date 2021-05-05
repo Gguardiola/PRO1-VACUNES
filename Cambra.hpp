@@ -18,7 +18,6 @@ private:
     map <string,int> registro_vacunas;
    
 public:
-    
 
     //Constructors
     Cambra();
@@ -36,24 +35,29 @@ public:
     //Modificadors
     void comprimir();
     /* Pre: cert */
-    /* Post: es desplacen les vacunes cap a l’esquerra i cap avall sense restar cap forat entre dues vacunes ni abans de cap vacuna, tot mantenint l’ordre relatiu de les vacunes */
+    /* Post: es desplacen les vacunes cap a l’esquerra i cap avall sense restar cap forat 
+    entre dues vacunes ni abans de cap vacuna, tot mantenint l’ordre relatiu de les vacunes */
     void ordenar();
     /* Pre: cert */
-    /* Post: s’ordenen alfabèticament les vacunes de la nevera que conté sense deixar forats entre elles ni abans de cap vacuna */
+    /* Post: s’ordenen alfabèticament les vacunes de la nevera que conté sense deixar forats 
+    entre elles ni abans de cap vacuna */
     void canviar_nevera(int x, int y);
-    /* Pre: cert */
+    /* Pre: La nova dimensió de la nevera ha de ser més gran o igual a l'anterior,
+    o sigui, (x*y) >= (nevera.size()*nevera[0].size()), en cas contrari no fa res */
     /* Post: es redimensiona la nevera. Si les vacunes que hi ha a la nevera inicial de
     la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
     contrari, es fa el canvi de mides de la nevera */
     void afegir_unitats(string id, int q, const vector<string> &vacunas);
     /* Pre: rep l'id de la vacuna, la quantitat de vacunes a introduir i un vector amb el total de vacunes declarades */
-    /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats com càpiguen 
-    en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
+    //la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+    /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats
+    com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
     void treure_unitats(string id, int q, const vector<string> &vacunas);
     /* Pre: rep l'id de la vacuna, la quantitat de vacunes a treure i un vector amb el total de vacunes declarades */
-    /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es
-    treuen tantes unitats com es pugui i es torna un enter que indiqui quantes
-    unitats no s'han pogut treure perquè no hi havia prou unitats a la cambra */ 
+    //la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+    /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es treuen 
+    tantes unitats com es pugui i es torna un enter que indiqui quantes unitats 
+    no s'han pogut treure perquè no hi havia prou unitats a la cambra */ 
 
     //Consultor
     int consultar_cantidad(string id) const;
