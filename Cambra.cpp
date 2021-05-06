@@ -35,32 +35,41 @@ entre dues vacunes ni abans de cap vacuna, tot mantenint l’ordre relatiu de le
 {
     int FIL = nevera.size()-1, i = nevera.size()-1;
     int COL = 0, j = 0;
-    while(i>=0 and FIL>=0){
+    //[i][j] són les coordenades originals de la matriu (nevera) primitiva
+    //[FIL][COL] són les segones coordenades de la matriu primitiva que farán de "segona" matriu (nevera) per poder recórrer-la
+    while(i >= 0 and FIL >= 0){
 
-        while(j<nevera[i].size() and COL<nevera[FIL].size()){
-            if(nevera[i][j]=="NULL" and nevera[FIL][COL]!="NULL"){
-                nevera[i][j]=nevera[FIL][COL];
-                nevera[FIL][COL]="NULL";
+        while(j < int(nevera[i].size()) and COL < int(nevera[FIL].size())){
+            //Hi ha 4 possibles combinacions entre les dues neveres, ja que poden estar o amb una vacuna o amb "NULL"
+            //Si la primitiva té NULL i la segona té una vacuna, cambiem de posició la vacuna per el "NULL" i avancem de posició
+            if(nevera[i][j] == "NULL" and nevera[FIL][COL] != "NULL"){
+                nevera[i][j] = nevera[FIL][COL];
+                nevera[FIL][COL] = "NULL";
                 j++; 
                 COL++;
             }
-            else if(nevera[i][j]=="NULL" and nevera[FIL][COL]=="NULL") COL++;
-            else if(nevera[i][j]!="NULL" and nevera[FIL][COL]=="NULL") j++;
-            
+            //Si les dues tenen "NULL", només avancem posició de la segona ja que volem omplir el "NULL" de la primitiva
+            else if(nevera[i][j] == "NULL" and nevera[FIL][COL] == "NULL") COL++;
+            //Si la primitiva té una vacuna i la segona té "NULL", avancem posició de la primera ja que al tenir una vacuna, no volem solapar-la
+            else if(nevera[i][j] != "NULL" and nevera[FIL][COL] == "NULL") j++;
+            //I quan les dues tenen una vacuna, avancem de posició
             else{
                 j++;
                 COL++;
             }
         }
-        if(j== nevera[i].size()){
+        //Quan una de les coordenades arribi al "límit", que avanci de fila
+        //Avançar seguent fila
+        if(j == int(nevera[i].size())){
             i--;
-            j=0;
+            j = 0;
         }
-        if(COL== nevera[FIL].size()){
+        //Avançar seguent fila
+        if(COL == int(nevera[FIL].size())){
             FIL--;
-            COL=0;
+            COL = 0;
         }
-    } 
+    }
 
 }
 
@@ -72,13 +81,16 @@ entre elles ni abans de cap vacuna */
     
     vector<string> neveraAux(nevera.size()*nevera[0].size());
     int s=0;
+    //Insertar la matriu (nevera) en un vector
     for(int i = nevera.size()-1; i >=0; i--){
         for(int j = nevera[i].size()-1; j >=0; j--, s++){
             neveraAux[s]= nevera[i][j];
         }
     }
+    //Ordenar el vector
     sort(neveraAux.begin(), neveraAux.end());
     s=0;
+    //Matriu ordenada
     for(int i = nevera.size()-1; i >=0; i--){
         for(int j = 0; j < nevera[i].size(); j++, s++){
             nevera[i][j] = neveraAux[s];
@@ -98,37 +110,39 @@ contrari, es fa el canvi de mides de la nevera */
         matriu aux(x,fila(y,"NULL"));
         int FIL = nevera.size()-1, i = aux.size()-1;
         int COL = 0, j = 0;
-        while(FIL>=0 and i>=0){
+        //[i][j] són les coordenades de la matriu (nevera) auxiliar
+        //[FIL][COL] són les coordenades de la matriu (nevera) primitiva
+        while(FIL >= 0 and i >= 0){
 
-            while(j<aux[i].size() and COL<nevera[FIL].size()){
-                
+            while(j < int(aux[i].size()) and COL < int(nevera[FIL].size())){
+                //Omplim aux amb els continguts de la nevera i avancem les coordenades de posició
                 aux[i][j] = nevera[FIL][COL];
                 j++;
                 ++COL;
             }
-            if(j== aux[i].size()){
+            //Quan una de les coordenades arribi al "límit" avança de fila
+            //Avançar seguent fila
+            if(j == aux[i].size()){
                 i--;
-                j=0;
+                j = 0;
             }
-            if(COL== nevera[FIL].size()){
+            //Avançar seguent fila
+            if(COL == nevera[FIL].size()){
                 --FIL;
-                COL=0;
+                COL = 0;
             }
         }
-        nevera=aux;
+        nevera = aux;
         comprimir();
 
-
     }else{
-        cout<<"  "<<"error"<<endl;
-
+        cout<<"  error"<<endl;
     }
 
 }
 
 void Cambra::afegir_unitats(string id, int q, const vector<string> &vacunas)
-/* Pre: rep l'id de la vacuna, la quantitat de vacunes a introduir i un vector amb el total de vacunes declarades */
-//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+/* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
 /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats
 com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
 {
@@ -139,9 +153,9 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
     }    
     if(exists){
         int i = nevera.size()-1,j = 0;
-        while(i>=0 and q!=0){
+        while(i >= 0 and q != 0){
             j = 0;
-            while(j<nevera[i].size() and q!=0){
+            while(j < int(nevera[i].size()) and q != 0){
                 if(nevera[i][j] == "NULL"){
                     nevera[i][j] = id;
                     q--;
@@ -152,20 +166,21 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
         }
         cout<<"  "<<q<<endl;
 
-        auxq-= q;
+        auxq -= q;
+        //Busquem en el diccionari si existeix una vacuna amb aquesta id (key), i si la troba, li sumem la quantitat (value) que s'ha afegit a la nevera
         map<string,int>::iterator it = registro_vacunas.find(id);
         if(it == registro_vacunas.end()){
             registro_vacunas.insert(make_pair(id,auxq));
-        }else{
+        }
+        else{
             it->second += auxq;
         }
-    }else   cout<<"  "<<"error"<<endl;
+    }else   cout<<"  error"<<endl;
     
 }
 
 void Cambra::treure_unitats(string id, int q,const vector<string> &vacunas)
-/* Pre: rep l'id de la vacuna, la quantitat de vacunes a treure i un vector amb el total de vacunes declarades */
-//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+/* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
 /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es treuen 
 tantes unitats com es pugui i es torna un enter que indiqui quantes unitats 
 no s'han pogut treure perquè no hi havia prou unitats a la cambra */ 
@@ -178,9 +193,9 @@ no s'han pogut treure perquè no hi havia prou unitats a la cambra */
     if(exists){
         int i = nevera.size()-1,j = 0;
 
-        while(i>=0 and q!=0){
+        while(i >= 0 and q != 0){
             j = 0;
-            while(j<nevera[i].size() and q!=0){
+            while(j < int(nevera[i].size()) and q != 0){
                 if(nevera[i][j] == id){
                     nevera[i][j] = "NULL";
                     q--;
@@ -190,12 +205,13 @@ no s'han pogut treure perquè no hi havia prou unitats a la cambra */
             i--;
         }
         cout<<"  "<<q<<endl;
-        auxq-= q;
+        auxq -= q;
+        //Busquem en el diccionari si existeix una vacuna amb aquesta id (key), i si la troba, li restem la quantitat (value) que s'ha eliminat de la nevera
         map<string,int>::iterator it = registro_vacunas.find(id);
         if(it != registro_vacunas.end()){
             it->second -= auxq;
         }
-    }else   cout<<"  "<<"error"<<endl;    
+    }else   cout<<"  error"<<endl;    
 }
 
 int Cambra::consultar_cantidad(string id) const
@@ -203,6 +219,7 @@ int Cambra::consultar_cantidad(string id) const
 /* Post: retorna la quantitat de vacunes que hi ha dins de la nevera amb l'id que s'ha demanat */
 {
     int cant = 0;
+    //Si en registro_vacunas troba la vacuna (key), retorna la quantitat (value) que hi ha a la nevera
     map<string,int>::const_iterator it = registro_vacunas.find(id);
     if(it != registro_vacunas.end()){
         cant = it->second;
@@ -226,9 +243,9 @@ També s’escriu quantes unitats hi ha en total i, per ordre d’identificador 
 existent en la nevera, s’escriuen l’identificador de vacuna i la seva quantitat */
 {
     int num_vacunas = 0;
-    for(unsigned int i = 0;i<nevera.size();i++){
+    for(unsigned int i = 0; i < nevera.size(); i++){
         cout<<"  ";
-        for(unsigned int j = 0;j<nevera[i].size();j++){
+        for(unsigned int j = 0; j < nevera[i].size(); j++){
             if(j != 0) cout<<" ";
             cout<<nevera[i][j];
             if(nevera[i][j] != "NULL") num_vacunas++;
@@ -238,9 +255,10 @@ existent en la nevera, s’escriuen l’identificador de vacuna i la seva quanti
 
     cout<<"  "<<num_vacunas<<endl;
 
+    //Recorre el diccionari registro_vacunas i imprimeix per pantalla la seva key i el value. EJ.: J0BX0M3 3
     for(map<string, int>::const_iterator it=registro_vacunas.begin();it!=registro_vacunas.end();it++){
-        cout<<"  ";
-        cout<<it->first<<" "<<it->second<<endl;
-
+        if(it->second!=0){
+        cout<<"  "<<it->first<<" "<<it->second<<endl;
+        }
     }
 }

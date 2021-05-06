@@ -1,8 +1,8 @@
 #include "Control.hpp"
 
 Control::Control()
-/* Pre: */
-/* Post: */
+/* Pre: cert */
+/* Post: Inicialitza el vector de vacunes */
 {
 
 }
@@ -15,14 +15,13 @@ de visibilitat */
 }
 
 void Control::afegir_vac(string id)
-/* Pre: cert */
-//la id de la vacuna NO ha d'existir en el vector on estan totes les vacunes declarades
+/* Pre: la id de la vacuna NO ha d'existir en el vector on estan totes les vacunes declarades */
 /* Post: si la vacuna ja existia, es produeix un error; sinó, la vacuna es dona d'alta
 en el sistema amb 0 unitats */
 {
     bool trobat = false;
     int i = 0;
-    while(i<vacunas.size() and not trobat){
+    while(i < int(vacunas.size()) and not trobat){
         if(vacunas[i] == id) trobat = true;
         i++;
     }
@@ -30,20 +29,23 @@ en el sistema amb 0 unitats */
         vacunas.push_back(id);
         sort(vacunas.begin(),vacunas.end());
     }
-    else        cout<<"  "<<"error"<<endl;
-    
+    else        cout<<"  error"<<endl;  
 }
 
-void Control::treure_vac(string id)
-/* Pre: cert */
-//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+void Control::treure_vac(string id, vector<Cambra> &almacen)
+/* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
 /* Post: si la vacuna no existeix, o existeix i en queden unitats, es produeix un error.
 En cas contrari, la vacuna es dona de baixa del sistema */
 {
     bool trobat = false;    
-    int i = 0;
+    int i = 0, cantidad = 0;
     vector<string>::iterator it = vacunas.begin();
-    while(i<vacunas.size() and not trobat){
+
+    for(unsigned int i = 0; i < almacen.size(); i++){
+        cantidad += almacen[i].consultar_cantidad(id);      //consultar_cantidad explicat en Cambra.cpp
+    }
+
+    while(i < int(vacunas.size()) and not trobat){
         if(vacunas[i] == id) trobat = true;
         else {
             i++;
@@ -51,10 +53,10 @@ En cas contrari, la vacuna es dona de baixa del sistema */
         }
     }
 
-    if(trobat) {
+    if(trobat and cantidad==0) {
         vacunas.erase(it);
     }
-    else cout<<"  "<<"error"<<endl;
+    else cout<<"  error"<<endl;
 }
 
 vector<string> Control::get_vacunas() const
@@ -65,8 +67,7 @@ vector<string> Control::get_vacunas() const
 }
 
 void Control::consultar_vac(string id, vector<Cambra> &almacen) const
-/* Pre: cert */
-//la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+/* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
 /* Post: Si la vacuna no existeix, es produeix un error. En cas contrari, escriu
 quantes unitats hi ha en total al magatzem */
 {
@@ -75,14 +76,13 @@ quantes unitats hi ha en total al magatzem */
     for (string i: vacunas){
         if(i == id) exists = true;
     }
-    if(!exists) cout<<"error"<<endl;
-    else{
-        for(unsigned int i = 0;i<almacen.size();i++){
-            cantidad+= almacen[i].consultar_cantidad(id);
+    if(exists){
+        for(unsigned int i = 0; i < almacen.size(); i++){
+            cantidad += almacen[i].consultar_cantidad(id);      //consultar_cantidad explicat en Cambra.cpp
         }
-
         cout<<cantidad<<endl;
-    }   
+    }
+    else    cout<<"error"<<endl;
 }
 
 void Control::inventari(vector<Cambra> &almacen) const
@@ -90,9 +90,8 @@ void Control::inventari(vector<Cambra> &almacen) const
 /* Post: Per cada tipus de vacuna que hi hagi en el sistema s'escriu el seu id
 i la quantitat total en el magatzem, ordenat per identificador de vacuna */
 {
-    for(int i=0; i < vacunas.size(); ++i){
-            cout<<"  ";
-            cout<<vacunas[i]<<" ";
-            consultar_vac(vacunas[i],almacen);
+    for(int i=0; i < int(vacunas.size()); ++i){
+        cout<<"  "<<vacunas[i]<<" ";
+        consultar_vac(vacunas[i],almacen);
     }
 }

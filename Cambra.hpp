@@ -15,7 +15,7 @@ class Cambra {
 private:
      
     matriu nevera;
-    map <string,int> registro_vacunas;
+    map <string,int> registro_vacunas;  //Aquest diccionari emmagatzema les vacunes i la quantitat d'unitats que hi ha en la nevera
    
 public:
 
@@ -48,13 +48,11 @@ public:
     la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
     contrari, es fa el canvi de mides de la nevera */
     void afegir_unitats(string id, int q, const vector<string> &vacunas);
-    /* Pre: rep l'id de la vacuna, la quantitat de vacunes a introduir i un vector amb el total de vacunes declarades */
-    //la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+    /* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats
     com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
     void treure_unitats(string id, int q, const vector<string> &vacunas);
-    /* Pre: rep l'id de la vacuna, la quantitat de vacunes a treure i un vector amb el total de vacunes declarades */
-    //la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades
+    /* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es treuen 
     tantes unitats com es pugui i es torna un enter que indiqui quantes unitats 
     no s'han pogut treure perquè no hi havia prou unitats a la cambra */ 
