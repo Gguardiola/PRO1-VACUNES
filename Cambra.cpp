@@ -92,7 +92,7 @@ entre elles ni abans de cap vacuna */
     s=0;
     //Matriu ordenada
     for(int i = nevera.size()-1; i >=0; i--){
-        for(int j = 0; j < nevera[i].size(); j++, s++){
+        for(int j = 0; j < int(nevera[i].size()); j++, s++){
             nevera[i][j] = neveraAux[s];
         }
     }
