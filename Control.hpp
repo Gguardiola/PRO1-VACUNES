@@ -1,5 +1,6 @@
 #ifndef CONTROL_HPP
 #define CONTROL_HPP
+#include "arbreBin.hpp"
 #include "Cambra.hpp"
 
 class Control {
@@ -7,6 +8,11 @@ class Control {
 private:
 
     vector<string> vacunas;
+    arbreBin<int> arbreDist = arbreBin<int>();
+    //arbreBin<int> arbreDist;
+
+    arbreBin<int> i_construirArbre(vector<int> pre, int &first, int low, int high);
+    
 
 public:
 
@@ -21,6 +27,9 @@ public:
     de visibilitat */
 
     //Modificadors
+    void construirArbre(vector<int> preOrd, int n);
+    void distribuir(string id, int q, vector<Cambra> &almacen);
+
     void afegir_vac(string id);
     /* Pre: la id de la vacuna NO ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna ja existia, es produeix un error; sinó, la vacuna es dona d'alta

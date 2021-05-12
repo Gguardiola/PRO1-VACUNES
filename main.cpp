@@ -1,8 +1,8 @@
 #include <iostream>
 #include <sstream>
+
 #include "Cambra.hpp"
 #include "Control.hpp"
-#include "arbreBin.hpp"
 #include <queue>
 #include <list>
 using namespace std;
@@ -33,93 +33,10 @@ arbreBin<int> sortedArrayToBST(vector<int> arr, int start, int end)
 
 // A recursive function to construct Full from pre[].
 // preIndex is used to keep track of index in pre[].
-arbreBin<int> construirArbre(vector<int> pre, int &first, int low, int high)
-{
-    // Caso base
-    if (first >= pre.size() || low > high)
-        return arbreBin<int>();
- 
-    // La primera posició del vector es l'arrel, llavors 
-    // ho construim i avancem de posició
-    arbreBin<int> root = arbreBin<int>(pre[first],arbreBin<int>(),arbreBin<int>());
-    first++;
- 
-    //Si el nostre vector només te 1 valor, s'acaba
-    if (pre.size() == 1) return root;
-
-    // "mid" es la meitat del nostre vector
-    int mid = (low + high)/2;
-
-    // i l'utilitzarem per dividir el vector en dues parts,
-    // l'arbre de l'esquerra i el de la dreta
-    arbreBin<int> left = construirArbre(pre, first, low, mid - 1);
-    root = arbreBin<int>(root.arrel(),left, arbreBin<int>());
-
-    arbreBin<int> right = construirArbre(pre, first, mid + 1, high);
-    root = arbreBin<int>(root.arrel(),left, right);
-
-    return root;
-}
-
-
-
-
-
-
-
-
-
-
-/*
-// The main function that constructs 
-//balanced BST and returns root of it. 
-//head_ref --> Pointer to pointer to 
-//head node of linked list n --> No.
-//of nodes in Linked List 
-arbreBin<int> sortedListToBSTRecur(list<int> head_ref,const int n) 
-{ 
-    // Base Case 
-    if (n <= 0) {
-        cout<<"esta vacio"<<endl;
-        return arbreBin<int>(); 
-        
-    }
-    // Recursively construct the left subtree 
-    arbreBin<int> left = sortedListToBSTRecur(head_ref, n/2); 
-    cout<<"left "<<endl<<left<<endl;
-    // Allocate memory for root, and 
-    //link the above constructed left 
-    //subtree with root 
-    arbreBin<int> root = arbreBin<int>(*(head_ref.begin()), left, arbreBin<int>()); 
-    cout<<"root "<<endl<<root<<endl;
-  
-    // Change head pointer of Linked List
-    //for parent recursive calls 
-    head_ref.erase(head_ref.begin());
-  
-    // Recursively construct the right 
-    //    subtree and link it with root 
-    //    The number of nodes in right subtree
-    //    is total nodes - nodes in 
-    //    left subtree - 1 (for root) which is n-n/2-1
-    root = arbreBin<int>(*(head_ref.begin()), left, sortedListToBSTRecur(head_ref, n - n / 2 - 1)); 
-    cout<<"right "<<endl<<root<<endl;
-    //root->right = sortedListToBSTRecur(head_ref, n - n / 2 - 1); 
-  
-    return root; 
-} */
-
-
-
-
-
-
-
-
 
 int main(){
 
-    vector<int> q;
+    vector<int> preOrd;
 
     vector <Cambra> almacen;
     int n, x, y;
@@ -129,16 +46,14 @@ int main(){
     bool end = false;
     cin >> n;       //Nota: Com no sabem si s'ha de tractar quan no hi hagi cap nevera, hem posat un if temporal. T'ho preguntarem en la sessió 12
     
-    int llista;
+    int input;
     for(int i = 0; i < (n*2)+1; i++){
-        cin>>llista;
-        if (llista !=0) q.push_back(llista);
+        cin>>input;
+        if (input !=0) preOrd.push_back(input);
     }
     
-    int first = 0;
-    arbreBin<int> lele = construirArbre(q, first, 0, n-1);
-    cout<<"funcion"<<endl<<lele<<endl;
-    
+    control.construirArbre(preOrd,n);
+
     if(n!=0){
         for(int i = 0; i < n; i++){
             cin >> x >> y;

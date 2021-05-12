@@ -5,13 +5,13 @@ all: main.exe
 main.exe: main.o Cambra.o Control.o 
 	g++ -o main.exe main.o Cambra.o Control.o
 		
-main.o: main.cpp Cambra.hpp Control.hpp
+main.o: main.cpp Cambra.hpp Control.hpp 
 	g++ -c main.cpp $(OPCIONS)
 	
 Cambra.o: Cambra.cpp Cambra.hpp
 	g++ -c Cambra.cpp $(OPCIONS)
 
-Control.o: Control.cpp Control.hpp Cambra.hpp
+Control.o: Control.cpp Control.hpp Cambra.hpp arbreBin.hpp
 	g++ -c Control.cpp $(OPCIONS)
 
 clean:

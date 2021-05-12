@@ -234,32 +234,35 @@ bool arbreBin<T>::es_buit() const
 /// ============================================== ///
 ///           Definició operacions friend          ///
 
-// operador << d'escriptura
-std::string dep = ""; 
+// Acció auxiliar per l'operador << d'escriptura
 template <class U>
-std::ostream& operator<<(std::ostream &os , const arbreBin<U> &x) {
+void op_escriptura_arbreBin(std::ostream &os, const arbreBin<U> &x, std::string pre) {
 /* Pre: cert */
-/* Post: s'han escrit al canal estàndard de sortida els elements de x */
-  std::string d1=dep;
+/* Post: s'han escrit al canal os els elements de x precedint-los amb l'string pre */
   if (x.es_buit()) 
     os << ".";
   else {
-    os << "["<<x.arrel() << "]\n" << d1 << " \\__";
-    dep = d1+" |  ";
-    os << x.fd();
-    os << "\n" << d1 << " \\__";
-    dep = d1+"    ";
-    os << x.fe();
+    os << "["<<x.arrel() << "]\n" << pre << " \\__";
+    op_escriptura_arbreBin(os, x.fd(), pre+" |  ");
+    os << "\n" << pre << " \\__";
+    op_escriptura_arbreBin(os, x.fe(), pre+"    ");
   }
-  dep = d1;
+}
+
+// operador << d'escriptura
+template <class U>
+std::ostream& operator<<(std::ostream &os, const arbreBin<U> &x) {
+/* Pre: cert */
+/* Post: s'han escrit al canal os els elements de x */
+  op_escriptura_arbreBin(os, x, "");
   return os;
 }
 
 // operador >> de lectura
 template <class U>
 std::istream& operator>>(std::istream &is, arbreBin<U> &x)
-/* Pre: x és buit; el canal estàndard d'entrada conté la mida de
-   l'arbre i els nodes en postordre d'un arbre binari X; per cada
+/* Pre: x és buit; el canal is conté la mida de l'arbre
+   i els nodes en postordre d'un arbre binari X; per cada
    node s'indica el seu valor i el nombre de fills */
 /* Post: x = X */ 
 {  

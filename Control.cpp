@@ -59,6 +59,60 @@ En cas contrari, la vacuna es dona de baixa del sistema */
     else cout<<"  error"<<endl;
 }
 
+arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, int high){
+    // Caso base
+    if (first >= pre.size() || low > high)
+        return arbreBin<int>();
+    // La primera posició del vector es l'arrel, llavors 
+    // ho construim i avancem de posició
+    arbreBin<int> root = arbreBin<int>(pre[first],arbreBin<int>(),arbreBin<int>());
+    first++;
+ 
+    //Si el nostre vector només te 1 valor, s'acaba
+    if (pre.size() == 1) return root;
+
+    // "mid" es la meitat del nostre vector
+    int mid = (low + high)/2;
+
+    // i l'utilitzarem per dividir el vector en dues parts,
+    // l'arbre de l'esquerra i el de la dreta
+    arbreBin<int> left = i_construirArbre(pre, first, low, mid - 1);
+    root = arbreBin<int>(root.arrel(),left, arbreBin<int>());
+
+    arbreBin<int> right = i_construirArbre(pre, first, mid + 1, high);
+    root = arbreBin<int>(root.arrel(),left, right);
+
+    return root;
+}
+
+
+void Control::construirArbre(vector<int> preOrd, int n){
+
+    int first = 0;
+    arbreDist = i_construirArbre(preOrd, first, 0, n-1);
+    cout<<arbreDist<<endl;
+
+    
+}
+
+void distribuir(string id, int q, vector<Cambra> &almacen)
+{//       40
+//        1   -> 10
+//        30
+//      15 15
+//      2   3
+//    8  7 8  7
+//    4  5 6  7
+//    3  2 1  5 + = cout<<11
+
+        cout<<arbreDist<<endl;
+        cout<<"hoklha"<<endl;
+        if(id== "NULL") cout<<q<<"hoadsd"<<endl;
+        almacen.size();
+
+
+}
+
 vector<string> Control::get_vacunas() const
 /* Pre: cert */
 /* Post: retorna el vector de strings amb les IDs de les vacunes */
