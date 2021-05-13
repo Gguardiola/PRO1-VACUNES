@@ -60,8 +60,8 @@ En cas contrari, la vacuna es dona de baixa del sistema */
 }
 
 arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, int high)
-
-
+// Pre:
+//Post:
 {
     // Caso base
     if (first >= pre.size() or low > high)
@@ -90,31 +90,52 @@ arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, in
 
 
 void Control::construirArbre(vector<int> preOrd)
-
-
+// Pre:
+// Post:
 {
     int first = 0;
     arbol = i_construirArbre(preOrd, first, 0, preOrd.size() - 1);
-    cout<<arbol<<endl;
+    //cout<<arbol<<endl;
 }
 
-void Control::distribuir(string id, int q, vector<Cambra> &almacen)
+int Control::distribuir(string id, int q, vector<Cambra> &almacen)
+// Pre:
+// Post:
 {//       40
-//        1   -> 10
-//        30
-//      15 15
+//        1   
+//        39
+//      20 19
 //      2   3
-//    8  7 8  7
+//      16 10
+//    8  8 5  5
 //    4  5 6  7
-//    3  2 1  5 + = cout<<11
+//    0  0 0  0 + = cout<<0
 
-//almacen[el numero del arbol - 1].afegir_unitats(id,q,vacunas);
-        cout<<arbol<<endl;
-        cout<<"hoklha"<<endl;
-        if(id== "NULL") cout<<q<<"hoadsd"<<endl;
-        almacen.size();
+int auxq = 0;
+q = rec_preordre(id, q, almacen, arbol, auxq);
+return q;
+}
 
 
+int Control::rec_preordre(string id, int q, vector<Cambra> &almacen, const arbreBin<int> &arbol, int &auxq)
+// Pre: 
+// Post: 
+{
+    int i = 0;
+    if (not arbol.es_buit() and q>0) {
+        q = almacen[arbol.arrel()-1].afegir_unitats(id,q,vacunas);
+        if( q == -1 or almacen.size() == 1) return q;
+        //cout<<"recursivo";
+        if(q%2 != 0)  i = 1;
+        rec_preordre(id, (q/2)+i, almacen, arbol.fe(), auxq);
+        
+        // H.I.: Afegeix a l els nodes del fill esquerra de A en preodre
+        rec_preordre(id, q/2, almacen, arbol.fd(), auxq);
+        // H.I.: Afegeix a l els nodes del fill dret de A en preodre
+        if(arbol.fe().es_buit() and arbol.fd().es_buit()) auxq += q;
+    }
+
+    return auxq;
 }
 
 vector<string> Control::get_vacunas() const

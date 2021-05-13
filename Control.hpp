@@ -27,7 +27,8 @@ public:
 
     //Modificadors
     void construirArbre(vector<int> preOrd);
-    void distribuir(string id, int q, vector<Cambra> &almacen);
+    int distribuir(string id, int q, vector<Cambra> &almacen);
+    int rec_preordre(string id, int q, vector<Cambra> &almacen, const arbreBin<int> &arbol, int &auxq);
 
     void afegir_vac(string id);
     /* Pre: la id de la vacuna NO ha d'existir en el vector on estan totes les vacunes declarades */

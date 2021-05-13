@@ -6,7 +6,6 @@ Cambra::Cambra()
 {
     cout<<"error mida de la cambra buida"<<endl;
     this -> ~Cambra();
-
 }
 
 Cambra::Cambra(int x, int y)
@@ -177,7 +176,7 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
             it->second += auxq;
         }
     }else   {
-        cout<<"  error"<<endl;
+        //cout<<"  error"<<endl;
         q=-1;
         }
     return q;

@@ -52,6 +52,7 @@ int main(){
             cout << line << endl;
             amount = almacen[nevera_num-1].afegir_unitats(id,amount,control.get_vacunas());;
             if( amount != -1)   cout<<"  "<<amount<<endl;
+            else cout<<"  error"<<endl;
         }
         else if(action == "treure_unitats"){
             ss >> nevera_num;
@@ -104,6 +105,14 @@ int main(){
             ss >> y;
             cout << line << endl;
             almacen[nevera_num-1].consultar_pos(x-1,y-1);
+        }
+        else if(action == "distribuir"){
+            ss >> id;
+            ss >> amount;
+            cout << line << endl;
+            amount = control.distribuir(id,amount,almacen);
+            if( amount != -1)   cout<<"  "<<amount<<endl;
+            else cout<<"  error"<<endl;
         }
         else if(action == "fi"){
             cout << line << endl;
