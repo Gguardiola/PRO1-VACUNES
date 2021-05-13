@@ -26,7 +26,7 @@ public:
     de visibilitat */
 
     //Modificadors
-    arbreBin<int> construirArbre(vector<int> preOrd, int n);
+    void construirArbre(vector<int> preOrd);
     void distribuir(string id, int q, vector<Cambra> &almacen);
 
     void afegir_vac(string id);

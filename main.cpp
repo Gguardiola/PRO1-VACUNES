@@ -21,12 +21,12 @@ int main(){
     int nodes;
     for(int i = 0; i < (n*2)+1; i++){
         cin>>nodes;
-        if (nodes !=0) preOrd.push_back(nodes);
+        if (nodes !=0) preOrd.push_back(nodes); //Para qué sirven los 0
     }
     
-    control.construirArbre(preOrd,n);
+    control.construirArbre(preOrd);
 
-    if(n!=0){ //Nota: Com no sabem si s'ha de tractar quan no hi hagi cap nevera, hem posat un if temporal. T'ho preguntarem en la sessió 12
+    if(n!=0){ //Nota: Com no sabem si s'ha de tractar quan no hi hagi cap cambra, hem posat un if temporal. T'ho preguntarem en la sessió 12
         for(int i = 0; i < n; i++){
             cin >> x >> y;
             almacen.push_back(Cambra(x,y));
@@ -50,7 +50,8 @@ int main(){
             ss >> id;
             ss >> amount;
             cout << line << endl;
-            almacen[nevera_num-1].afegir_unitats(id,amount,control.get_vacunas());
+            amount = almacen[nevera_num-1].afegir_unitats(id,amount,control.get_vacunas());;
+            if( amount != -1)   cout<<"  "<<amount<<endl;
         }
         else if(action == "treure_unitats"){
             ss >> nevera_num;

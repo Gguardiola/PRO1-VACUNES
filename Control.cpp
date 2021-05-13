@@ -89,14 +89,13 @@ arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, in
 }
 
 
-arbreBin<int> Control::construirArbre(vector<int> preOrd, int n)
+void Control::construirArbre(vector<int> preOrd)
 
 
 {
     int first = 0;
-    arbol = i_construirArbre(preOrd, first, 0, n-1);
+    arbol = i_construirArbre(preOrd, first, 0, preOrd.size() - 1);
     cout<<arbol<<endl;
-    return arbol;
 }
 
 void Control::distribuir(string id, int q, vector<Cambra> &almacen)
@@ -109,6 +108,7 @@ void Control::distribuir(string id, int q, vector<Cambra> &almacen)
 //    4  5 6  7
 //    3  2 1  5 + = cout<<11
 
+//almacen[el numero del arbol - 1].afegir_unitats(id,q,vacunas);
         cout<<arbol<<endl;
         cout<<"hoklha"<<endl;
         if(id== "NULL") cout<<q<<"hoadsd"<<endl;

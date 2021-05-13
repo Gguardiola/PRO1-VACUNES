@@ -176,7 +176,10 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
         else{
             it->second += auxq;
         }
-    }else   cout<<"  error"<<endl;
+    }else   {
+        cout<<"  error"<<endl;
+        q=-1;
+        }
     return q;
 }
 
