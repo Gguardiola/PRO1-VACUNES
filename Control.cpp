@@ -59,9 +59,12 @@ En cas contrari, la vacuna es dona de baixa del sistema */
     else cout<<"  error"<<endl;
 }
 
-arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, int high){
+arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, int high)
+
+
+{
     // Caso base
-    if (first >= pre.size() || low > high)
+    if (first >= pre.size() or low > high)
         return arbreBin<int>();
     // La primera posició del vector es l'arrel, llavors 
     // ho construim i avancem de posició
@@ -86,16 +89,17 @@ arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, in
 }
 
 
-void Control::construirArbre(vector<int> preOrd, int n){
+arbreBin<int> Control::construirArbre(vector<int> preOrd, int n)
 
+
+{
     int first = 0;
-    arbreDist = i_construirArbre(preOrd, first, 0, n-1);
-    cout<<arbreDist<<endl;
-
-    
+    arbol = i_construirArbre(preOrd, first, 0, n-1);
+    cout<<arbol<<endl;
+    return arbol;
 }
 
-void distribuir(string id, int q, vector<Cambra> &almacen)
+void Control::distribuir(string id, int q, vector<Cambra> &almacen)
 {//       40
 //        1   -> 10
 //        30
@@ -105,7 +109,7 @@ void distribuir(string id, int q, vector<Cambra> &almacen)
 //    4  5 6  7
 //    3  2 1  5 + = cout<<11
 
-        cout<<arbreDist<<endl;
+        cout<<arbol<<endl;
         cout<<"hoklha"<<endl;
         if(id== "NULL") cout<<q<<"hoadsd"<<endl;
         almacen.size();

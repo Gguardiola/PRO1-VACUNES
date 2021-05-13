@@ -8,12 +8,11 @@ class Control {
 private:
 
     vector<string> vacunas;
-    arbreBin<int> arbreDist = arbreBin<int>();
-    //arbreBin<int> arbreDist;
+    //arbreBin<int> arbol = arbreBin<int>();
+    arbreBin<int> arbol;
 
     arbreBin<int> i_construirArbre(vector<int> pre, int &first, int low, int high);
     
-
 public:
 
     //Constructors
@@ -27,7 +26,7 @@ public:
     de visibilitat */
 
     //Modificadors
-    void construirArbre(vector<int> preOrd, int n);
+    arbreBin<int> construirArbre(vector<int> preOrd, int n);
     void distribuir(string id, int q, vector<Cambra> &almacen);
 
     void afegir_vac(string id);

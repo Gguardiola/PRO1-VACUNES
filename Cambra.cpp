@@ -6,6 +6,7 @@ Cambra::Cambra()
 {
     cout<<"error mida de la cambra buida"<<endl;
     this -> ~Cambra();
+
 }
 
 Cambra::Cambra(int x, int y)
@@ -16,7 +17,7 @@ Cambra::Cambra(int x, int y)
     for(int j = 0; j < y; j++){
         aux.push_back("NULL");
     }    
-    for(int i = 0; i < x; i++){            
+    for(int i = 0; i < x; i++){
         nevera.push_back(aux);
     }
 }
@@ -141,7 +142,7 @@ contrari, es fa el canvi de mides de la nevera */
 
 }
 
-void Cambra::afegir_unitats(string id, int q, const vector<string> &vacunas)
+int Cambra::afegir_unitats(string id, int q, const vector<string> &vacunas)
 /* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
 /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats
 com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
@@ -164,7 +165,7 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
             } 
             i--;
         }
-        cout<<"  "<<q<<endl;
+        //cout<<"  "<<q<<endl;
 
         auxq -= q;
         //Busquem en el diccionari si existeix una vacuna amb aquesta id (key), i si la troba, li sumem la quantitat (value) que s'ha afegit a la nevera
@@ -176,7 +177,7 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
             it->second += auxq;
         }
     }else   cout<<"  error"<<endl;
-    
+    return q;
 }
 
 void Cambra::treure_unitats(string id, int q,const vector<string> &vacunas)

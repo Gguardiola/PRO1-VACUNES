@@ -47,7 +47,7 @@ public:
     /* Post: es redimensiona la nevera. Si les vacunes que hi ha a la nevera inicial de
     la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
     contrari, es fa el canvi de mides de la nevera */
-    void afegir_unitats(string id, int q, const vector<string> &vacunas);
+    int afegir_unitats(string id, int q, const vector<string> &vacunas);
     /* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats
     com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 

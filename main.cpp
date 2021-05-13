@@ -1,38 +1,10 @@
 #include <iostream>
 #include <sstream>
-
 #include "Cambra.hpp"
 #include "Control.hpp"
 #include <queue>
 #include <list>
 using namespace std;
-/*
-// A function that constructs Balanced
-//Binary Search Tree from a sorted array 
-arbreBin<int> sortedArrayToBST(vector<int> arr, int start, int end) 
-{ 
-    // Base Case 
-    if (start > end) 
-    return arbreBin<int>(); 
-  
-    // Get the middle element and make it root /
-    int mid = (start + end)/2; 
-    arbreBin<int> root = arbreBin<int>(arr[i], arbreBin<int>(), arbreBin<int>()); 
-    //cout<<"root"<<endl<<root<<endl;
-    
-    // Recursively construct the left subtree 
-    //and make it left child of root /
-    arbreBin<int> left = sortedArrayToBST(arr, start, mid - 1); 
-    root = arbreBin<int>(root.arrel(),left, arbreBin<int>());
-    // Recursively construct the right subtree 
-    //and make it right child of root /
-    arbreBin<int> right = sortedArrayToBST(arr, mid + 1, end); 
-    root = arbreBin<int>(root.arrel(),left, right);
-    return root; 
-}*/
-
-// A recursive function to construct Full from pre[].
-// preIndex is used to keep track of index in pre[].
 
 int main(){
 
@@ -44,17 +16,17 @@ int main(){
     string line, action, id;
     int nevera_num, amount;
     bool end = false;
-    cin >> n;       //Nota: Com no sabem si s'ha de tractar quan no hi hagi cap nevera, hem posat un if temporal. T'ho preguntarem en la sessió 12
+    cin >> n;
     
-    int input;
+    int nodes;
     for(int i = 0; i < (n*2)+1; i++){
-        cin>>input;
-        if (input !=0) preOrd.push_back(input);
+        cin>>nodes;
+        if (nodes !=0) preOrd.push_back(nodes);
     }
     
     control.construirArbre(preOrd,n);
 
-    if(n!=0){
+    if(n!=0){ //Nota: Com no sabem si s'ha de tractar quan no hi hagi cap nevera, hem posat un if temporal. T'ho preguntarem en la sessió 12
         for(int i = 0; i < n; i++){
             cin >> x >> y;
             almacen.push_back(Cambra(x,y));
@@ -138,38 +110,3 @@ int main(){
         }      
     }
 }
-
-
-
-
-/*arbreBin<int> rec_preordre(queue<int> &q, int start, int end)
-// Pre: a = A, l = L 
-// Post: a L s'han afegit al final els nodes d'A recorreguts en preordre 
-
-{
-    arbreBin<int> ar_tmp, vacio;
-	int mid = (start + end) / 2;
-    if(not q.empty()){
-
-    //ar_tmp = arbreBin<int>(ar_tmp, vacio, vacio);
-    int x = q.front();
-    
-    arbreBin<int> afe = rec_preordre(q, start, mid - 1); 
-    
-    arbreBin<int> afd = rec_preordre(q, mid + 1, end); 
-
-    ar_tmp = arbreBin<int>(x, afe, afd);
-    }
-
-	//if(p.empty()){
-	//	sum=0;
-	//}else{
-		//int x = p.top();
-		//p.pop();
-		//int sum1= sumaPila(p);
-		// HI: sum1 es la suma del elements de P tret del cim 
-		// Fita: la mida de p 
-		//sum= sum1 + x;
-	//}
-	return ar_tmp;
-}*/
