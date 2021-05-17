@@ -60,8 +60,8 @@ En cas contrari, la vacuna es dona de baixa del sistema */
 }
 
 arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, int high)
-// Pre:
-//Post:
+/* Pre: */
+/* Post: Retorna arbre amb n (=pre.size()) nodes */
 {
     // Caso base
     if (first >= pre.size() or low > high)
@@ -80,9 +80,13 @@ arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, in
     // i l'utilitzarem per dividir el vector en dues parts,
     // l'arbre de l'esquerra i el de la dreta
     arbreBin<int> left = i_construirArbre(pre, first, low, mid - 1);
+    /* HI: arbre esq */
+    /* FF: mid - 1 */
     root = arbreBin<int>(root.arrel(),left, arbreBin<int>());
 
     arbreBin<int> right = i_construirArbre(pre, first, mid + 1, high);
+    /* HI: arbre dret */
+    /* FF: mid + 1 */
     root = arbreBin<int>(root.arrel(),left, right);
 
     return root;
@@ -90,8 +94,8 @@ arbreBin<int> Control::i_construirArbre(vector<int> pre, int &first, int low, in
 
 
 void Control::construirArbre(vector<int> preOrd)
-// Pre:
-// Post:
+/* Pre: */
+/* Post: */
 {
     int first = 0;
     arbol = i_construirArbre(preOrd, first, 0, preOrd.size() - 1);
@@ -99,8 +103,8 @@ void Control::construirArbre(vector<int> preOrd)
 }
 
 int Control::distribuir(string id, int q, vector<Cambra> &almacen)
-// Pre:
-// Post:
+/* Pre: */
+/* Post: */
 {//       40
 //        1   
 //        39
@@ -118,8 +122,8 @@ return q;
 
 
 int Control::rec_preordre(string id, int q, vector<Cambra> &almacen, const arbreBin<int> &arbol, int &auxq)
-// Pre: 
-// Post: 
+/* Pre: */
+/* Post: */
 {
     int i = 0;
     if (not arbol.es_buit() and q>0) {
@@ -128,9 +132,13 @@ int Control::rec_preordre(string id, int q, vector<Cambra> &almacen, const arbre
         //cout<<"recursivo";
         if(q%2 != 0)  i = 1;
         rec_preordre(id, (q/2)+i, almacen, arbol.fe(), auxq);
-        
+        /* HI:  */
+        /* FF: arbol.fe */
+
         // H.I.: Afegeix a l els nodes del fill esquerra de A en preodre
         rec_preordre(id, q/2, almacen, arbol.fd(), auxq);
+        /* HI:  */
+        /* FF: arbol.fd */
         // H.I.: Afegeix a l els nodes del fill dret de A en preodre
         if(arbol.fe().es_buit() and arbol.fd().es_buit()) auxq += q;
     }

@@ -12,7 +12,8 @@ private:
     arbreBin<int> arbol;
 
     arbreBin<int> i_construirArbre(vector<int> pre, int &first, int low, int high);
-    
+    /* Pre: */
+    /* Post: */
 public:
 
     //Constructors
@@ -27,9 +28,14 @@ public:
 
     //Modificadors
     void construirArbre(vector<int> preOrd);
+    /* Pre: */
+    /* Post: */
     int distribuir(string id, int q, vector<Cambra> &almacen);
+    /* Pre: */
+    /* Post: */
     int rec_preordre(string id, int q, vector<Cambra> &almacen, const arbreBin<int> &arbol, int &auxq);
-
+    /* Pre: */
+    /* Post: */
     void afegir_vac(string id);
     /* Pre: la id de la vacuna NO ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna ja existia, es produeix un error; sinó, la vacuna es dona d'alta
