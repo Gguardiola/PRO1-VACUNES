@@ -41,7 +41,7 @@ public:
     /* Pre: cert */
     /* Post: s’ordenen alfabèticament les vacunes de la nevera que conté sense deixar forats 
     entre elles ni abans de cap vacuna */
-    void canviar_nevera(int x, int y);
+    bool canviar_nevera(int x, int y);
     /* Pre: La nova dimensió de la nevera ha de ser més gran o igual a l'anterior,
     o sigui, (x*y) >= (nevera.size()*nevera[0].size()), en cas contrari no fa res */
     /* Post: es redimensiona la nevera. Si les vacunes que hi ha a la nevera inicial de
@@ -51,7 +51,7 @@ public:
     /* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es posen tantes unitats
     com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no han cabut */ 
-    void treure_unitats(string id, int q, const vector<string> &vacunas);
+    int treure_unitats(string id, int q, const vector<string> &vacunas);
     /* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es treuen 
     tantes unitats com es pugui i es torna un enter que indiqui quantes unitats 
@@ -61,7 +61,7 @@ public:
     int consultar_cantidad(string id) const;
     /* Pre: cert */
     /* Post: retorna la quantitat de vacunes que hi ha dins de la nevera amb l'id que s'ha demanat */
-    void consultar_pos(int x, int y) const;
+    string consultar_pos(int x, int y) const;
     /* Pre: cert */
     /* Post: s’indica quina vacuna hi ha en la posició corresponent de la nevera de la cambra. 
     Si no hi ha cap vacuna, s’escriu NULL */

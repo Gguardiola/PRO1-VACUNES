@@ -8,8 +8,6 @@ using namespace std;
 
 int main(){
 
-    vector<int> preOrd;
-
     vector <Cambra> almacen;
     int n, x, y;
     Control control;
@@ -18,15 +16,9 @@ int main(){
     bool end = false;
     cin >> n;
     
-    int nodes;
-    for(int i = 0; i < (n*2)+1; i++){
-        cin>>nodes;
-        if (nodes !=0) preOrd.push_back(nodes); //Para qué sirven los 0
-    }
-    
-    control.construirArbre(preOrd);
+    control.construirArbre(n);
 
-    if(n!=0){ //Nota: Com no sabem si s'ha de tractar quan no hi hagi cap cambra, hem posat un if temporal. T'ho preguntarem en la sessió 12
+    if(n!=0){ //En cas que es tracti quan no hi hagi cap cambra
         for(int i = 0; i < n; i++){
             cin >> x >> y;
             almacen.push_back(Cambra(x,y));
@@ -51,7 +43,7 @@ int main(){
             ss >> amount;
             cout << line << endl;
             amount = almacen[nevera_num-1].afegir_unitats(id,amount,control.get_vacunas());;
-            if( amount != -1)   cout<<"  "<<amount<<endl;
+            if(amount >= 0)   cout<<"  "<<amount<<endl;
             else cout<<"  error"<<endl;
         }
         else if(action == "treure_unitats"){
@@ -59,23 +51,28 @@ int main(){
             ss >> id;
             ss >> amount;
             cout << line << endl;
-            almacen[nevera_num-1].treure_unitats(id,amount,control.get_vacunas());
+            amount = almacen[nevera_num-1].treure_unitats(id,amount,control.get_vacunas());
+            if(amount >= 0)   cout<<"  "<<amount<<endl;
+            else cout<<"  error"<<endl;
         }        
         else if(action == "afegir_vac"){
             ss >> id;
             cout << line << endl;
-            control.afegir_vac(id);
+            bool exist = control.afegir_vac(id);
+            if(exist) cout<<"  error"<<endl;
         }
         else if(action == "treure_vac"){
             ss >> id;
             cout << line << endl;
-            control.treure_vac(id,almacen);
+            bool trobat = control.treure_vac(id,almacen);
+            if(!trobat) cout<<"  error"<<endl;
         }      
         else if(action == "consultar_vac"){
             ss >> id;
             cout << line << endl;
-            cout<<"  ";
-            control.consultar_vac(id,almacen);
+            amount = control.consultar_vac(id,almacen);
+            if(amount >= 0)   cout<<"  "<<amount<<endl;
+            else cout<<"  error"<<endl;
         }  
         else if(action == "inventari"){
             ss >> id;
@@ -87,7 +84,8 @@ int main(){
             ss >> x;
             ss >> y;
             cout << line << endl;
-            almacen[nevera_num-1].canviar_nevera(x,y);
+            bool canvia = almacen[nevera_num-1].canviar_nevera(x,y);
+            if(!canvia)    cout<<"  error"<<endl;
         }
         else if(action == "comprimir"){
             ss >> nevera_num;
@@ -104,14 +102,14 @@ int main(){
             ss >> x;
             ss >> y;
             cout << line << endl;
-            almacen[nevera_num-1].consultar_pos(x-1,y-1);
+            cout<<"  "<<almacen[nevera_num-1].consultar_pos(x-1,y-1)<<endl;
         }
         else if(action == "distribuir"){
             ss >> id;
             ss >> amount;
             cout << line << endl;
             amount = control.distribuir(id,amount,almacen);
-            if( amount != -1)   cout<<"  "<<amount<<endl;
+            if( amount >= 0)   cout<<"  "<<amount<<endl;
             else cout<<"  error"<<endl;
         }
         else if(action == "fi"){

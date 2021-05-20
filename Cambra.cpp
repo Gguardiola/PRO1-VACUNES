@@ -99,14 +99,20 @@ entre elles ni abans de cap vacuna */
 
 }
 
-void Cambra::canviar_nevera(int x, int y)
-/* Pre: La nova dimensió de la nevera ha de ser més gran o igual a l'anterior,
-o sigui, (x*y) >= (nevera.size()*nevera[0].size()), en cas contrari no fa res */
+bool Cambra::canviar_nevera(int x, int y)
+/* Pre: La nova dimensió de la nevera ha de ser més gran o igual a la quantitat total de vacunes,
+o sigui, (x*y) >= total_vacunas, en cas contrari no fa res */
 /* Post: es redimensiona la nevera. Si les vacunes que hi ha a la nevera inicial de
 la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
 contrari, es fa el canvi de mides de la nevera */
 {
-    if((x*y) >= (nevera.size()*nevera[0].size())){
+    //Recorre el diccionari registro_vacunas i sumem i guardem el value de les vacunes de cada nevera, així obtenim el total.
+    int total_vacunas = 0;
+    for(map<string, int>::const_iterator it=registro_vacunas.begin();it!=registro_vacunas.end();it++){
+        if(it->second!=0)   total_vacunas += it->second;
+    }
+    bool canvia = true;
+    if((x*y) >= total_vacunas){
         matriu aux(x,fila(y,"NULL"));
         int FIL = nevera.size()-1, i = aux.size()-1;
         int COL = 0, j = 0;
@@ -134,11 +140,9 @@ contrari, es fa el canvi de mides de la nevera */
         }
         nevera = aux;
         comprimir();
-
-    }else{
-        cout<<"  error"<<endl;
-    }
-
+        //s'ha pogut canviar
+    }else   canvia = false; //no s'ha pogut canviar
+    return canvia;
 }
 
 int Cambra::afegir_unitats(string id, int q, const vector<string> &vacunas)
@@ -148,9 +152,9 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
 {
     int auxq = q;
     bool exists = false;
-    for (string i: vacunas){
+    for (string i: vacunas){            //exsits = funcion(vacunas)
         if(i == id) exists = true;
-    }    
+    }
     if(exists){
         int i = nevera.size()-1,j = 0;
         while(i >= 0 and q != 0){
@@ -164,7 +168,6 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
             } 
             i--;
         }
-        //cout<<"  "<<q<<endl;
 
         auxq -= q;
         //Busquem en el diccionari si existeix una vacuna amb aquesta id (key), i si la troba, li sumem la quantitat (value) que s'ha afegit a la nevera
@@ -175,14 +178,11 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
         else{
             it->second += auxq;
         }
-    }else   {
-        //cout<<"  error"<<endl;
-        q=-1;
-        }
+    }else   q = -1; //comentari -1 es una buena señalización para dar a entender que ha habido un error
     return q;
 }
 
-void Cambra::treure_unitats(string id, int q,const vector<string> &vacunas)
+int Cambra::treure_unitats(string id, int q,const vector<string> &vacunas)
 /* Pre: la id de la vacuna ha d'existir en el vector on estan totes les vacunes declarades */
 /* Post: si la vacuna no existeix, es produeix un error. En cas contrari, es treuen 
 tantes unitats com es pugui i es torna un enter que indiqui quantes unitats 
@@ -207,14 +207,14 @@ no s'han pogut treure perquè no hi havia prou unitats a la cambra */
             } 
             i--;
         }
-        cout<<"  "<<q<<endl;
         auxq -= q;
         //Busquem en el diccionari si existeix una vacuna amb aquesta id (key), i si la troba, li restem la quantitat (value) que s'ha eliminat de la nevera
         map<string,int>::iterator it = registro_vacunas.find(id);
         if(it != registro_vacunas.end()){
             it->second -= auxq;
         }
-    }else   cout<<"  error"<<endl;    
+    }else   q = -1;
+    return q;
 }
 
 int Cambra::consultar_cantidad(string id) const
@@ -231,12 +231,12 @@ int Cambra::consultar_cantidad(string id) const
 
 }
 
-void Cambra::consultar_pos(int x, int y) const
+string Cambra::consultar_pos(int x, int y) const
 /* Pre: cert */
 /* Post: s’indica quina vacuna hi ha en la posició corresponent de la nevera de la cambra. 
 Si no hi ha cap vacuna, s’escriu NULL */
 {
-    cout<<"  "<<nevera[x][y]<<endl;
+    return nevera[x][y];
 }
 
 void Cambra::escriure() const
