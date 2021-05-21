@@ -9,13 +9,13 @@ using namespace std;
 int main(){
 
     vector <Cambra> almacen;
-    int n, x, y;
-    Control control;
+    int n, x, y, nevera_num, amount;
     string line, action, id;
-    int nevera_num, amount;
     bool end = false;
+
+    Control control;
     cin >> n;
-    
+    //UPDATE: es truca al mètode construirArbre per a generar l'arbre en preordre
     control.construirArbre(n);
 
     if(n!=0){ //En cas que es tracti quan no hi hagi cap cambra

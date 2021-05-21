@@ -12,6 +12,7 @@ Cambra::Cambra(int x, int y)
 /* Pre: cert */
 /* Post: crea una nevera de x·y */
 {
+    //UPDATE: construim les neveres
     vector<string> aux;
     for(int j = 0; j < y; j++){
         aux.push_back("NULL");
@@ -82,7 +83,7 @@ entre elles ni abans de cap vacuna */
     vector<string> neveraAux(nevera.size()*nevera[0].size());
     int s=0;
     //Insertar la matriu (nevera) en un vector
-    for(int i = nevera.size()-1; i >=0; i--){
+    for(int i = nevera.size()-1; i >= 0; i--){
         for(int j = nevera[i].size()-1; j >=0; j--, s++){
             neveraAux[s]= nevera[i][j];
         }
@@ -91,7 +92,7 @@ entre elles ni abans de cap vacuna */
     sort(neveraAux.begin(), neveraAux.end());
     s=0;
     //Matriu ordenada
-    for(int i = nevera.size()-1; i >=0; i--){
+    for(int i = nevera.size()-1; i >= 0; i--){
         for(int j = 0; j < int(nevera[i].size()); j++, s++){
             nevera[i][j] = neveraAux[s];
         }
@@ -106,7 +107,7 @@ o sigui, (x*y) >= total_vacunas, en cas contrari no fa res */
 la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
 contrari, es fa el canvi de mides de la nevera */
 {
-    //Recorre el diccionari registro_vacunas i sumem i guardem el value de les vacunes de cada nevera, així obtenim el total.
+    //UPDATE: Recorre el diccionari registro_vacunas i sumem i guardem el value de les vacunes de cada nevera, així obtenim el total.
     int total_vacunas = 0;
     for(map<string, int>::const_iterator it=registro_vacunas.begin();it!=registro_vacunas.end();it++){
         if(it->second!=0)   total_vacunas += it->second;
@@ -140,8 +141,8 @@ contrari, es fa el canvi de mides de la nevera */
         }
         nevera = aux;
         comprimir();
-        //s'ha pogut canviar
-    }else   canvia = false; //no s'ha pogut canviar
+        //UPDATE: canvia és true i s'ha pogut canviar
+    }else   canvia = false; //UPDATE: no s'ha pogut canviar
     return canvia;
 }
 
@@ -152,9 +153,11 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
 {
     int auxq = q;
     bool exists = false;
-    for (string i: vacunas){            //exsits = funcion(vacunas)
+    //UPDATE: Es mira si existeix la vacuna
+    for (string i: vacunas){
         if(i == id) exists = true;
     }
+    //UPDATE: afegim la màxima quantitat d'unitats que es pugui a la cambra
     if(exists){
         int i = nevera.size()-1,j = 0;
         while(i >= 0 and q != 0){
@@ -178,7 +181,7 @@ com càpiguen en la cambra i es torna un enter que indiqui quantes unitats no ha
         else{
             it->second += auxq;
         }
-    }else   q = -1; //comentari -1 es una buena señalización para dar a entender que ha habido un error
+    }else   q = -1; //UPDATE: -1 és una bona senyalització per donar a entendre que s'ha produït un error
     return q;
 }
 
@@ -190,9 +193,11 @@ no s'han pogut treure perquè no hi havia prou unitats a la cambra */
 {
     int auxq = q;
     bool exists = false;
+    //UPDATE: Es mira si existeix la vacuna
     for (string i: vacunas){
         if(i == id) exists = true;
-    }    
+    }
+    //UPDATE: treiem la màxima quantitat d'unitats que es pugui de la cambra
     if(exists){
         int i = nevera.size()-1,j = 0;
 
@@ -213,7 +218,7 @@ no s'han pogut treure perquè no hi havia prou unitats a la cambra */
         if(it != registro_vacunas.end()){
             it->second -= auxq;
         }
-    }else   q = -1;
+    }else   q = -1; //UPDATE: -1 és una bona senyalització per donar a entendre que s'ha produït un error
     return q;
 }
 
@@ -246,6 +251,7 @@ També s’escriu quantes unitats hi ha en total i, per ordre d’identificador 
 existent en la nevera, s’escriuen l’identificador de vacuna i la seva quantitat */
 {
     int num_vacunas = 0;
+    //UPDATE: mostrem per pantalla la cambra sencera i calculem la quantitat de vacunes
     for(unsigned int i = 0; i < nevera.size(); i++){
         cout<<"  ";
         for(unsigned int j = 0; j < nevera[i].size(); j++){

@@ -42,8 +42,8 @@ public:
     /* Post: s’ordenen alfabèticament les vacunes de la nevera que conté sense deixar forats 
     entre elles ni abans de cap vacuna */
     bool canviar_nevera(int x, int y);
-    /* Pre: La nova dimensió de la nevera ha de ser més gran o igual a l'anterior,
-    o sigui, (x*y) >= (nevera.size()*nevera[0].size()), en cas contrari no fa res */
+    /* Pre: La nova dimensió de la nevera ha de ser més gran o igual a la quantitat total de vacunes,
+    o sigui, (x*y) >= total_vacunas, en cas contrari no fa res */
     /* Post: es redimensiona la nevera. Si les vacunes que hi ha a la nevera inicial de
     la cambra no caben en les dimensions de la nova nevera, es produeix un error. En cas
     contrari, es fa el canvi de mides de la nevera */

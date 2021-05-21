@@ -11,11 +11,12 @@ private:
     arbreBin<int> arbol;
 
     static arbreBin<int> construirArbre(vector<int> pre, int &first, int low, int high);
-    /* Pre: */
-    /* Post: */
+    /* Pre: L'entrada consisteix en rebre el vector amb els valors en preordre, la posició del primer element 
+    i les posicions del nombre més petit i del més gran */
+    /* Post: el resultat es un arbre binari on el seu nombre de nodes equival al tamany del nostre vector, ordenat en preordre a partir dels mateixos valors que el vector pre */
     static int distribuir(string id, int q, vector<Cambra> &almacen, const arbreBin<int> &arbol, int &auxq, vector<string> &Vacunas);
-    /* Pre: */
-    /* Post: */
+    /* Pre: a = A, q > 0*/
+    /* Post: retorna un enter que indiqui quantes unitats no han cabut en totes les cambres */
 
 public:
 
@@ -31,11 +32,11 @@ public:
 
     //Modificadors
     void construirArbre(int n);
-    /* Pre: */
-    /* Post: */
+    /* Pre: cert */
+    /* Post: el resultat es un arbre binari on el seu nombre de nodes equival al tamany del nostre vector, ordenat en preordre a partir dels mateixos valors que el vector pre */
     int distribuir(string id, int q, vector<Cambra> &almacen);
-    /* Pre: */
-    /* Post: */
+    /* Pre: cert */
+    /* Post: retorna un enter que indiqui quantes unitats no han cabut en totes les cambres */
     bool afegir_vac(string id);
     /* Pre: la id de la vacuna NO ha d'existir en el vector on estan totes les vacunes declarades */
     /* Post: si la vacuna ja existia, es produeix un error; sinó, la vacuna es dona d'alta
