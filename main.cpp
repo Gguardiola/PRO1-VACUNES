@@ -23,8 +23,7 @@ NOTA: ACTUALIZACIONES DE LA PRIMERA ENTREGA
  - Hemos puesto más comentarios
    - Se pueden buscar con el find (ctrl + F en algunos editores) con la palabra clave UPDATE:)
 
- */
-
+*/
 
 int main(){
 
@@ -47,7 +46,6 @@ int main(){
         end=true;
         cout<<"fi"<<endl;
     }
-
 
     while(not end and getline(cin,line)){
         istringstream ss(line);

@@ -117,10 +117,11 @@ int Control::distribuir(string id, int q, vector<Cambra> &almacen, const arbreBi
 /* Post: retorna un enter que indiqui quantes unitats no han cabut en totes les cambres */
 {
     int i = 0;
-    if (not a.es_buit() and q > 0) {
+    if (not a.es_buit() and q > 0){
         //Actualitzem q amb les unitats que no han cabut
         q = almacen[a.arrel()-1].afegir_unitats(id,q,Vacunas);
         if( q == -1 or almacen.size() == 1) return q;   //-1 és una bona senyalització per donar a entendre que s'ha produït un error
+        //Si es impar, sumarem la vacuna (i = 1) sobrant a la part esquerra (té prioritat)
         if(q%2 != 0)  i = 1;
         distribuir(id, (q/2)+i, almacen, a.fe(), auxq,Vacunas);
         /* HI: el resultat és un enter que indica quantes unitats no han cabut en cada node de l'arbre esquerra */
@@ -128,6 +129,7 @@ int Control::distribuir(string id, int q, vector<Cambra> &almacen, const arbreBi
         distribuir(id, q/2, almacen, a.fd(), auxq,Vacunas);
         /* HI: el resultat és un enter que indica quantes unitats no han cabut en cada node de l'arbre dret */
         /* FF: mida de l'arbre dret */
+        //Detectem si es una fulla (0 fills) i sumem les quantitats que sobren 
         if(a.fe().es_buit() and a.fd().es_buit()) auxq += q;
     }
     return auxq;
