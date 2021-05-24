@@ -6,6 +6,26 @@
 #include <list>
 using namespace std;
 
+/*
+NOTA: ACTUALIZACIONES DE LA PRIMERA ENTREGA
+ - Arreglado canviar_nevera
+ - Mejorada la modularización de las clases:
+    · Ahora los siguientes metodos tienen return en vez de void:
+        - afegir_unitats
+        - treure_unitats
+        - canviar_nevera
+        - consultar_pos
+        - afegir_vac
+        - treure_vac
+        - consultar_vac
+        Esto quiere decir que se han tenido que adaptar algunas lineas de codigo.
+
+ - Hemos puesto más comentarios
+   - Se pueden buscar con el find (ctrl + F en algunos editores) con la palabra clave UPDATE:)
+
+ */
+
+
 int main(){
 
     vector <Cambra> almacen;
@@ -15,7 +35,7 @@ int main(){
 
     Control control;
     cin >> n;
-    //UPDATE: es truca al mètode construirArbre per a generar l'arbre en preordre
+    //es truca al mètode construirArbre per a generar l'arbre en preordre
     control.construirArbre(n);
 
     if(n!=0){ //En cas que es tracti quan no hi hagi cap cambra
